@@ -10,6 +10,24 @@ nav nav-wrapper {
 
 }
 
+.index-block-header{
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 44px;
+    overflow: hidden;
+
+}
+
+.index-block-text{
+
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29px;
+    overflow: hidden;
+}
+
 .page-footer {
     padding-top: 20px;
     color: #fff;
@@ -31,6 +49,22 @@ nav {
     background-color: rgba(47,63,76,.9);
 
 }
+
+.head-slider__title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 1.4;
+    margin-top: 150px;
+}
+.head-slider__title span{
+    font-weight: 100;
+    background-color: rgba(0,0,0,.5);
+}
+
+
+
+
 
 nav ul a {
     -webkit-transition: background-color .3s;

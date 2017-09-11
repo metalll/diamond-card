@@ -1,47 +1,90 @@
 package com.nsd.diamondcard.Model;
 
-import javax.persistence.*;
-
-import java.io.Serializable;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import static com.nsd.diamondcard.Utils.Constants.USERS_TABLE_NAME;
 
 
-@Entity
-@Table(name = USERS_TABLE_NAME)
-public class User implements Serializable{
+@DatabaseTable(tableName = USERS_TABLE_NAME)
+public class User{
 
+
+    public User(){};
     // column constant declaration
 
     private static final String COLUMN_ID = "USER_ID";
-    private static final String COLUMN_EMAIL = "EMAIL";
+    public static final String COLUMN_EMAIL = "EMAIL";
     private static final String COLUMN_PASSWD = "PASSWD";
     private static final String COLUMN_BILLING_CARD_NUM = "BILLING_CARD";
     private static final String COLUMN_UUID_CASHBACK_CARD = "CASHBACK_CARD";
-
-    //serializable var
-
-    private static final long serialVersionUID = 1L;
+    private static final String COLUMN_FOREIGN_ROLE_ID = "ROLE";
 
     // declaration entity var
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = COLUMN_ID)
+    @DatabaseField(generatedId = true,columnName = COLUMN_ID)
     private long userID;
 
-    @Column(name = COLUMN_EMAIL)
+    @DatabaseField(columnName = COLUMN_EMAIL,unique = true)
     private String email;
 
-    @Column(name = COLUMN_PASSWD)
+    @DatabaseField(columnName = COLUMN_PASSWD)
     private String passwd;
 
-    @Column(name = COLUMN_BILLING_CARD_NUM)
+    @DatabaseField(columnName = COLUMN_BILLING_CARD_NUM)
     private String billingCardNum;
 
-    @Column(name = COLUMN_UUID_CASHBACK_CARD)
+    @DatabaseField(columnName = COLUMN_UUID_CASHBACK_CARD)
     private String cashbackCardNumber;
 
+    @DatabaseField(columnName = COLUMN_FOREIGN_ROLE_ID)
+    private String roleID;
 
+    public long getUserID() {
+        return userID;
+    }
 
+    private void setUserID(long userID) {
+        this.userID = userID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
+    public String getBillingCardNum() {
+        return billingCardNum;
+    }
+
+    public void setBillingCardNum(String billingCardNum) {
+        this.billingCardNum = billingCardNum;
+    }
+
+    public String getCashbackCardNumber() {
+        return cashbackCardNumber;
+    }
+
+    public void setCashbackCardNumber(String cashbackCardNumber) {
+        this.cashbackCardNumber = cashbackCardNumber;
+    }
+
+    public String getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(String roleID) {
+        this.roleID = roleID;
+    }
 }
