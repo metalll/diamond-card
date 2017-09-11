@@ -29,13 +29,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User user = userService.getUser(s);
 
+
         Set<GrantedAuthority> roles = new HashSet<>();
-        roles.add(new SimpleGrantedAuthority(userRole.getRoleWithID(user.getUserID()).name()));
+        if(user!=null) {
+            roles.add(new SimpleGrantedAuthority(userRole.getRoleWithUserID(user.getUserID()).name()));
+        }else{
+            throw new UsernameNotFoundException("bad auth");
+        }
 
         UserDetails userDetails =
                 new org.springframework.security.core.userdetails.User(user.getEmail(),
                         user.getPasswd(),
                         roles);
+
+
 
         return userDetails;
     }

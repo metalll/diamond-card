@@ -10,7 +10,7 @@ import static com.nsd.diamondcard.Utils.Constants.USERS_TABLE_NAME;
 public class User{
 
 
-    public User(){};
+    public User(){}
     // column constant declaration
 
     private static final String COLUMN_ID = "USER_ID";
@@ -18,7 +18,6 @@ public class User{
     private static final String COLUMN_PASSWD = "PASSWD";
     private static final String COLUMN_BILLING_CARD_NUM = "BILLING_CARD";
     private static final String COLUMN_UUID_CASHBACK_CARD = "CASHBACK_CARD";
-    private static final String COLUMN_FOREIGN_ROLE_ID = "ROLE";
 
     // declaration entity var
 
@@ -36,9 +35,6 @@ public class User{
 
     @DatabaseField(columnName = COLUMN_UUID_CASHBACK_CARD)
     private String cashbackCardNumber;
-
-    @DatabaseField(columnName = COLUMN_FOREIGN_ROLE_ID)
-    private String roleID;
 
     public long getUserID() {
         return userID;
@@ -80,11 +76,4 @@ public class User{
         this.cashbackCardNumber = cashbackCardNumber;
     }
 
-    public String getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(String roleID) {
-        this.roleID = roleID;
-    }
 }

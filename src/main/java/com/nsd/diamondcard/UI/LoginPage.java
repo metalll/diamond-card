@@ -9,10 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Controller
 @RequestMapping
-public class ShopsPage {
-    private static final String VIEW_NAME = "shops";
+public class LoginPage {
+    private static final String VIEW_NAME = "login";
 
     @GetMapping("/"+VIEW_NAME)
     public ModelAndView index(){

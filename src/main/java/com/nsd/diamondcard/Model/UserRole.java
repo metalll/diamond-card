@@ -11,7 +11,7 @@ public class UserRole {
 
     private static final String COLUMN_ID = "ROLE_ID";
     private static final String COLUMN_ROLE = "ROLE";
-    private static final String COLUMN_FOREIGN_USER_ID = "ROLE_ID";
+    public static final String COLUMN_FOREIGN_USER_ID = "USER_ID";
 
     public UserRole(){}
 
@@ -19,7 +19,7 @@ public class UserRole {
     private long id;
 
     @DatabaseField(columnName = COLUMN_ROLE)
-    private String role;
+    private UserRoleEnum role;
 
     @DatabaseField(columnName = COLUMN_FOREIGN_USER_ID)
     private String userID;
@@ -32,13 +32,7 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getUserID() {
         return userID;
@@ -46,5 +40,13 @@ public class UserRole {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public UserRoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(UserRoleEnum role) {
+        this.role = role;
     }
 }

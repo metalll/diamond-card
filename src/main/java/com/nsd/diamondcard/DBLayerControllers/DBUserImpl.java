@@ -3,7 +3,9 @@ package com.nsd.diamondcard.DBLayerControllers;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import com.nsd.diamondcard.Model.User;
+import com.nsd.diamondcard.Model.UserRole;
 import com.nsd.diamondcard.Utils.Constants;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,11 @@ public class DBUserImpl implements DBUser {
             e.printStackTrace();
         }
         try {
-
-            dao = DaoManager.createDao(new JdbcConnectionSource(Constants.MYSQL_URL),User.class);
+            dao = DaoManager.createDao(new JdbcConnectionSource(Constants.MYSQL_URL,Constants.MYSQL_LOGIN,Constants.MYSQL_PASSWD),User.class);
+             if(!dao.isTableExists()){
+                TableUtils.createTable(dao.getConnectionSource(),User.class);
+                dao.getConnectionSource().closeQuietly();
+            }
         }catch (Exception e){e.printStackTrace();}
 
     };
