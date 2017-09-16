@@ -14,6 +14,8 @@ import java.util.List;
 @Service
 public class DBRoleImpl implements DBRole {
 
+
+
     private Dao<UserRole,Long> dao;
 
     public DBRoleImpl(){
@@ -31,7 +33,6 @@ public class DBRoleImpl implements DBRole {
                 dao.getConnectionSource().closeQuietly();
             }
         }catch (Exception e){e.printStackTrace();}
-
 
     }
 

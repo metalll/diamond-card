@@ -6,7 +6,8 @@ public enum UserRoleEnum {
     ROLE_CONTR_AGENT,
     ROLE_MEDIATIOR,
     ROLE_ADMIN,
-    ROLE_SUPERADMIN
+    ROLE_SUPERADMIN,
+    ROLE_NONE
 }
 
 

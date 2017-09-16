@@ -9,7 +9,6 @@ import static com.nsd.diamondcard.Utils.Constants.USERS_TABLE_NAME;
 @DatabaseTable(tableName = USERS_TABLE_NAME)
 public class User{
 
-
     public User(){}
     // column constant declaration
 
