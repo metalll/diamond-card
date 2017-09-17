@@ -22,5 +22,4 @@ public class Admin {
     @DatabaseField
     private String surname;
 
-
 }

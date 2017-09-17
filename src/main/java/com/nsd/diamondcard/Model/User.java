@@ -7,23 +7,25 @@ import static com.nsd.diamondcard.Utils.Constants.USERS_TABLE_NAME;
 
 
 @DatabaseTable(tableName = USERS_TABLE_NAME)
-public class User{
+public class User {
 
-    public User(){}
+    public User() {
+    }
     // column constant declaration
 
-    private static final String COLUMN_ID = "USER_ID";
     public static final String COLUMN_EMAIL = "EMAIL";
+
+    private static final String COLUMN_ID = "USER_ID";
     private static final String COLUMN_PASSWD = "PASSWD";
     private static final String COLUMN_BILLING_CARD_NUM = "BILLING_CARD";
     private static final String COLUMN_UUID_CASHBACK_CARD = "CASHBACK_CARD";
 
     // declaration entity var
 
-    @DatabaseField(generatedId = true,columnName = COLUMN_ID)
+    @DatabaseField(generatedId = true, columnName = COLUMN_ID)
     private long userID;
 
-    @DatabaseField(columnName = COLUMN_EMAIL,unique = true)
+    @DatabaseField(columnName = COLUMN_EMAIL, unique = true)
     private String email;
 
     @DatabaseField(columnName = COLUMN_PASSWD)
