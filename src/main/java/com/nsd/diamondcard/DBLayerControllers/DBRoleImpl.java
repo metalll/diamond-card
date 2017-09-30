@@ -4,11 +4,13 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.nsd.diamondcard.Model.User;
 import com.nsd.diamondcard.Model.UserRole;
 import com.nsd.diamondcard.Model.UserRoleEnum;
 import com.nsd.diamondcard.Utils.Constants;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 
 @Service
@@ -20,13 +22,18 @@ public class DBRoleImpl implements DBRole {
 
     public DBRoleImpl(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         try {
 
-            dao = DaoManager.createDao(new JdbcConnectionSource(Constants.MYSQL_URL,Constants.MYSQL_LOGIN,Constants.MYSQL_PASSWD),UserRole.class);
+            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+            String username = dbUri.getUserInfo().split(":")[0];
+            String password = dbUri.getUserInfo().split(":")[1];
+            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+            dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,username,password),UserRole.class);
 
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),UserRole.class);

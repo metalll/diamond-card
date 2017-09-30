@@ -9,6 +9,7 @@ import com.nsd.diamondcard.Model.UserRole;
 import com.nsd.diamondcard.Utils.Constants;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 
 @Service
@@ -16,12 +17,20 @@ public class DBUserImpl implements DBUser {
 
     public DBUserImpl(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+
+
+            Class.forName("org.postgresql.Driver");}
+            catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            dao = DaoManager.createDao(new JdbcConnectionSource(Constants.MYSQL_URL,Constants.MYSQL_LOGIN,Constants.MYSQL_PASSWD),User.class);
+
+            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+            String username = dbUri.getUserInfo().split(":")[0];
+            String password = dbUri.getUserInfo().split(":")[1];
+            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+            dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,username,password),User.class);
              if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),User.class);
                 dao.getConnectionSource().closeQuietly();
