@@ -53,7 +53,7 @@ public class ResponceAuth {
 
         UserRoleEnum currentRole = UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority());
 
-        String currUserName = ((UserDetails)currentAuth.getDetails()).getUsername();
+        String currUserName = currentAuth.getName();
 
         System.out.println(Constants.CONSOLE_ANSI_YELLOW + "Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name() + Constants.CONSOLE_ANSI_RESET );
 
