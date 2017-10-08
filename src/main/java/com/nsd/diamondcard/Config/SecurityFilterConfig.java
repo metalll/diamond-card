@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.net.URISyntaxException;
 
+import static com.nsd.diamondcard.Controller.ResponceAuth.RESPONCE_AUTH_PATH;
+
 
 @Configuration
 @EnableWebSecurity
@@ -84,7 +86,8 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
                 // указываем URL при неудачном логине
-                .failureUrl("/login?error")
+                .failureUrl(RESPONCE_AUTH_PATH)
+                .successForwardUrl(RESPONCE_AUTH_PATH)
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
