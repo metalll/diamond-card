@@ -53,15 +53,15 @@ public class ResponceAuth {
 
         UserRoleEnum currentRole = UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority());
 
-        String currUserName = currentAuth.getName();
+        String currUserName = ((org.springframework.security.core.userdetails.User)currentAuth).getUsername();
 
         System.out.println(Constants.CONSOLE_ANSI_YELLOW + "Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name() + Constants.CONSOLE_ANSI_RESET );
 
         JSONRequest request = new JSONRequest();
         request.setData(new ArrayList());
 
-        com.nsd.diamondcard.Model.User tUser= userService.getUser(currUserName);
-        tUser.setPasswd("");
+        com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
+     //   tUser.setPasswd("");
 
         switch (currentRole){
             case ROLE_NONE:

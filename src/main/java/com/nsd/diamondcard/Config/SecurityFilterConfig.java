@@ -85,6 +85,7 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
+
                 // указываем URL при неудачном логине
                 .failureUrl(RESPONCE_AUTH_PATH)
                 .successForwardUrl(RESPONCE_AUTH_PATH)
