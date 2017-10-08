@@ -82,7 +82,7 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 // указываем страницу с формой логина
-                .loginPage("/login")
+
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
 

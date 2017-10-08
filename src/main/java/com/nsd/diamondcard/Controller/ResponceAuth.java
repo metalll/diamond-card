@@ -43,7 +43,7 @@ public class ResponceAuth {
 
 
     @GetMapping(RESPONCE_AUTH_PATH)
-    public String responce(){
+    public String responceGet(){
 
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -56,7 +56,6 @@ public class ResponceAuth {
         }
 
         Gson gson = new Gson();
-
 
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -83,5 +82,6 @@ public class ResponceAuth {
 
         return gson.toJson(request);
     }
+
 
 }
