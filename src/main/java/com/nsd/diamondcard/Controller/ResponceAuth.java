@@ -58,9 +58,11 @@ public class ResponceAuth {
         Gson gson = new Gson();
 
 
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         UserRoleEnum currentRole = UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority());
 
-        String currUserName = ((org.springframework.security.core.userdetails.User)currentAuth).getUsername();
+        String currUserName = user.getUsername();
 
         System.out.println(Constants.CONSOLE_ANSI_YELLOW + "Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name() + Constants.CONSOLE_ANSI_RESET );
 
