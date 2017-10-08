@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_NONE;
+
 /**
  * Created by nsd on 08.10.17.
  */
@@ -40,7 +42,9 @@ public class ResponceAuth {
     @GetMapping(RESPONCE_AUTH_PATH)
     public String responce(){
 
-        if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority()) == ROLE_NONE){
             Gson gson = new Gson();
             JSONRequest request = new JSONRequest();
             request.setData(new ArrayList());
@@ -49,7 +53,7 @@ public class ResponceAuth {
         }
 
         Gson gson = new Gson();
-        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+
 
         UserRoleEnum currentRole = UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority());
 
