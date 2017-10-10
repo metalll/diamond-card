@@ -1,30 +1,26 @@
 package com.nsd.diamondcard.Config;
 
-
+import com.allanditzel.springframework.security.web.csrf.CsrfTokenResponseHeaderBindingFilter;
 import com.nsd.diamondcard.Model.UserRoleEnum;
+import com.nsd.diamondcard.Security.RESTAuthenticationEntryPoint;
+import com.nsd.diamondcard.Security.RESTAuthenticationFailureHandler;
+import com.nsd.diamondcard.Security.RESTAuthenticationSuccessHandler;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import java.net.URISyntaxException;
 
-import static com.nsd.diamondcard.Controller.ResponceAuth.RESPONCE_AUTH_PATH;
-
-
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
-
 
     @Bean
     public ShaPasswordEncoder getShaPasswordEncoder(){
@@ -39,6 +35,13 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private RESTAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private RESTAuthenticationFailureHandler authenticationFailureHandler;
+    @Autowired
+    private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 
 
     @Bean
@@ -79,30 +82,11 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/super_admin**").hasAnyRole(UserRoleEnum.ROLE_SUPERADMIN.name())
         ;
         http.exceptionHandling().accessDeniedPage("/error");
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+        http.formLogin().successHandler(authenticationSuccessHandler);
+        http.formLogin().failureHandler(authenticationFailureHandler);
+        http.logout().logoutSuccessUrl("/");
 
-        http.formLogin()
-                // указываем страницу с формой логина
-
-                // указываем action с формы логина
-                .loginProcessingUrl("/j_spring_security_check")
-
-                // указываем URL при неудачном логине
-                .failureUrl(RESPONCE_AUTH_PATH)
-                .successForwardUrl(RESPONCE_AUTH_PATH)
-                // Указываем параметры логина и пароля с формы логина
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                // даем доступ к форме логина всем
-                .permitAll();
-
-        http.logout()
-                // разрешаем делать логаут всем
-                .permitAll()
-                // указываем URL логаута
-                .logoutUrl("/logout")
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login?logout")
-                // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
+        http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
     }
 }
