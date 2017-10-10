@@ -110,7 +110,6 @@
             url: "/login",
             type: "post",
             data: data,
-            headers: {'X-CSRF-TOKEN': cookie.csrf},
             success: function (data, textStatus, jqXHR) {
                 var csrfToken = jqXHR.getResponseHeader('X-CSRF-TOKEN');
                 if(csrfToken) {
