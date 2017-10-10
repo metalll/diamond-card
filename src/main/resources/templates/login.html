@@ -117,7 +117,7 @@
                     cookie.csrf = csrfToken;
                     $.cookie('helloween', JSON.stringify(cookie));
                 }
-                window.location = cookie.url;
+                console.log(csrfToken);
                 console.log(data);
                 console.log(textStatus);
             }
