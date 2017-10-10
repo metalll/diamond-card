@@ -92,7 +92,7 @@
 
         console.log(login);
         console.log(pass);
-
+        var cookie = JSON.parse($.cookie('helloween'));
         if (empty(login) || empty(pass)) {
 
             if (empty(login)) {
@@ -110,7 +110,9 @@
             url: "/login",
             type: "post",
             data: data,
-            success: function (data, textStatus, request) {
+            headers: {'X-CSRF-TOKEN': cookie.csrf},
+            success: function (data, textStatus, jqXHR) {
+                window.location = cookie.url;
                 console.log(data);
                 console.log(textStatus);
             }
