@@ -77,7 +77,9 @@ public class ResponceAuth {
                 break;
             default:
                 request.setStatus("OK");
+                tUser.setPasswd("");
                 request.getData().add(tUser);
+                request.getData().add(currentRole.name());
         }
 
         return gson.toJson(request);
