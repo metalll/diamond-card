@@ -66,8 +66,6 @@ public class ResponceAuth {
         request.setData(new ArrayList());
 
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
-     //   tUser.setPasswd("");
-
         switch (currentRole){
             case ROLE_NONE:
                 request.setStatus("BAD");
