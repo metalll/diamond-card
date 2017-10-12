@@ -38,10 +38,6 @@ public class ResponceAuth {
     @Autowired
     private DBUser userService;
 
-
-    
-
-
     @PostMapping(RESPONCE_AUTH_PATH)
     public String responceGet(){
 
@@ -76,6 +72,7 @@ public class ResponceAuth {
             default:
                 request.setStatus("OK");
                 tUser.setPasswd("");
+                tUser.setBillingCardNum("");
                 request.getData().add(tUser);
                 request.getData().add(currentRole.name());
         }
