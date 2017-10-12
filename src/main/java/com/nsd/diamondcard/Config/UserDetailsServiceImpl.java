@@ -37,14 +37,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("bad auth");
         }
 
-        UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getEmail(),
-                        user.getPasswd(),
-                        roles);
-
-
-
-
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPasswd(),
+                roles);
     }
 }

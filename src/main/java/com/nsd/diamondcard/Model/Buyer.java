@@ -8,10 +8,6 @@ import static com.nsd.diamondcard.Utils.Constants.BUYER_TABLE_NAME;
 @DatabaseTable(tableName = BUYER_TABLE_NAME)
 public class Buyer {
 
-
-
-
-
     public Buyer(){}
 
     @DatabaseField(generatedId = true)
