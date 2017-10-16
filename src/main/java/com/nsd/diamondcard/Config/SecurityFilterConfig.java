@@ -38,8 +38,10 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RESTAuthenticationEntryPoint authenticationEntryPoint;
+
     @Autowired
     private RESTAuthenticationFailureHandler authenticationFailureHandler;
+
     @Autowired
     private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 
