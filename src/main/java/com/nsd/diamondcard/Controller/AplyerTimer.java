@@ -32,9 +32,10 @@ public void start() {
         @Override
         public void run() {
             //TODO applyData;
-            System.out.print("Apply");
+
+            System.out.print("Data -> Apply");
         }
-    },60000,(60000));
+    },0,(5000));
 }
 
 
