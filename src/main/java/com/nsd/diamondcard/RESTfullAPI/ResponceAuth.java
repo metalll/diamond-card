@@ -1,4 +1,4 @@
-package com.nsd.diamondcard.Controller;
+package com.nsd.diamondcard.RESTfullAPI;
 
 import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
@@ -26,8 +26,6 @@ import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_NONE;
 /**
  * Created by nsd on 08.10.17.
  */
-
-
 
 @RestController
 @RequestMapping
@@ -79,6 +77,4 @@ public class ResponceAuth {
 
         return gson.toJson(request);
     }
-
-
 }

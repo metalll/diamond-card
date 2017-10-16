@@ -1,4 +1,4 @@
-package com.nsd.diamondcard.RESTfullAPI;
+package com.nsd.diamondcard.RESTfullAPI.API;
 
 import org.springframework.web.bind.annotation.RestController;
 

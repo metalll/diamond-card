@@ -10,8 +10,6 @@ public class AplyerTimer{
 
 private static volatile AplyerTimer instance = null;
 
-
-
 public static AplyerTimer getInstance(){
     AplyerTimer localInstance = instance;
     if (localInstance == null) {
@@ -19,25 +17,24 @@ public static AplyerTimer getInstance(){
             localInstance = instance;
             if (localInstance == null) {
                 instance = localInstance = new AplyerTimer();
-                instance.start();
+
             }
         }
     }
     return localInstance;
 }
 
-private Timer timer = null;
+public Timer timer = null;
 
-private void start() {
+public void start() {
     this.timer = new Timer();
     this.timer.scheduleAtFixedRate(new TimerTask() {
         @Override
         public void run() {
-            //Todo APPLY EXPIRED TASKS
+            //TODO applyData;
+            System.out.print("Apply");
         }
-    },0,(60000 * 60));
-
-
+    },0,(60000));
 }
 
 
