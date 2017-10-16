@@ -3,7 +3,6 @@ package com.nsd.diamondcard;
 
 
 import com.nsd.diamondcard.Config.SecurityFilterConfig;
-import com.nsd.diamondcard.Controller.AplyerTimer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +21,6 @@ public class DiamondCardApplication {
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(DiamondCardApplication.class);
 		application.run(args);
-		AplyerTimer.getInstance().start();
+
 	}
 }
