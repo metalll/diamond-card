@@ -34,7 +34,7 @@ public void start() {
             //TODO applyData;
             System.out.print("Apply");
         }
-    },0,(60000));
+    },60000,(60000));
 }
 
 
