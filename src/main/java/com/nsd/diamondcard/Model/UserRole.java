@@ -1,6 +1,7 @@
 package com.nsd.diamondcard.Model;
 
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -32,7 +33,8 @@ public class UserRole {
         this.id = id;
     }
 
-
+    @DatabaseField(dataType = DataType.LONG_STRING)
+    private String image;
 
     public String getUserID() {
         return userID;
@@ -48,5 +50,13 @@ public class UserRole {
 
     public void setRole(UserRoleEnum role) {
         this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
