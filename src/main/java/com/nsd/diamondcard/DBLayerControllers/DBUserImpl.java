@@ -17,8 +17,6 @@ public class DBUserImpl implements DBUser {
 
     public DBUserImpl(){
         try {
-
-
             Class.forName("org.postgresql.Driver");}
             catch (Exception e) {
             e.printStackTrace();

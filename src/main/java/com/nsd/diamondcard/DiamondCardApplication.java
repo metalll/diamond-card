@@ -18,8 +18,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class DiamondCardApplication {
 
 
-	@Bean
-	DBUser dbUser(){ return new DBUserImpl(); }
 
 	@Bean
 	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
