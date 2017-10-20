@@ -2,6 +2,7 @@ package com.nsd.diamondcard.Model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.hibernate.id.insert.AbstractSelectingDelegate;
 
 import static com.nsd.diamondcard.Utils.Constants.ADMIN_TABLE_NAME;
 
