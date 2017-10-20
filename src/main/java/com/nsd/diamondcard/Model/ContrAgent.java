@@ -27,6 +27,9 @@ public class ContrAgent {
     @DatabaseField
     private float percent;
 
+    @DatabaseField
+    private long foreingUserId;
+
     public String getImage() {
         return image;
     }
@@ -73,5 +76,13 @@ public class ContrAgent {
 
     public void setPercent(float percent) {
         this.percent = percent;
+    }
+
+    public long getForeingUserId() {
+        return foreingUserId;
+    }
+
+    public void setForeingUserId(long foreingUserId) {
+        this.foreingUserId = foreingUserId;
     }
 }
