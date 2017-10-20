@@ -3,6 +3,8 @@ package com.nsd.diamondcard;
 
 
 import com.nsd.diamondcard.Config.SecurityFilterConfig;
+import com.nsd.diamondcard.DBLayerControllers.DBUser;
+import com.nsd.diamondcard.DBLayerControllers.DBUserImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableAutoConfiguration
 @EnableScheduling
 public class DiamondCardApplication {
+
+
+	@Bean
+	DBUser dbUser(){ return new DBUserImpl(); }
 
 	@Bean
 	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
