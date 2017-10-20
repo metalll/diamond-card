@@ -33,8 +33,7 @@ public class UserRole {
         this.id = id;
     }
 
-    @DatabaseField(dataType = DataType.LONG_STRING)
-    private String image;
+
 
     public String getUserID() {
         return userID;
@@ -52,11 +51,5 @@ public class UserRole {
         this.role = role;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
