@@ -74,7 +74,7 @@ public class RestBuyer {
                 request.getData().add(tUser);
                 request.getData().add(currentRole.name());
         }
-
+        return "";
     }
 
 }
