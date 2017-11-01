@@ -40,7 +40,8 @@ public class RestActitvity {
 
         activity.setInitiatorId(userService.getUser(currentAuth.getName()).getUserID());
         activity.setTargetId(userService.getUserWithCard(userCashCard).getUserID());
-        activity.setOperationValue(type);
+        activity.setOperationValue(value);
+        activity.setType(type);
         activity.setData(dateFormat.format(new Date()));
         activity.setEndData("unknown");
         activity.setActiveOperation(true);
@@ -65,8 +66,6 @@ public class RestActitvity {
         if (requestList!=null) {
             request.getData().add(requestList);
         }
-
-
         return gson.toJson(request);
     }
 
