@@ -12,8 +12,10 @@ public class Activity {
     public static final String ACTIVITY_TYPE_GET_ALL_CASH = "ACTIVITY_TYPE_GET_ALL_CASH" ;
     //from
     @DatabaseField(generatedId = true)
-    private long initiatorId;
+    private long activityId;
 
+    @DatabaseField
+    private long initiatorId;
     //to
     @DatabaseField
     private long targetId;
