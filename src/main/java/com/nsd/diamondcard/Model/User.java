@@ -18,7 +18,7 @@ public class User {
     private static final String COLUMN_ID = "USER_ID";
     private static final String COLUMN_PASSWD = "PASSWD";
     private static final String COLUMN_BILLING_CARD_NUM = "BILLING_CARD";
-    private static final String COLUMN_UUID_CASHBACK_CARD = "CASHBACK_CARD";
+    public static final String COLUMN_UUID_CASHBACK_CARD = "CASHBACK_CARD";
 
     // declaration entity var
 

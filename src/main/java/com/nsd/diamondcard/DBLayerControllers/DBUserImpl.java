@@ -102,6 +102,22 @@ public class DBUserImpl implements DBUser {
     }
 
     @Override
+    public User getUserWithCard(String cashbackCard) {
+        User resultValue = null;
+        try{
+            List<User> requestList = dao.queryForEq(User.COLUMN_UUID_CASHBACK_CARD,cashbackCard);
+            if (requestList.size() > 0 && requestList.size() < 2) {
+                resultValue = requestList.get(0);
+            }
+            dao.getConnectionSource().closeQuietly();
+        }catch (Exception e){
+            System.err.println("Critical Error Get User With email \n -> stackTrace \n" + e.getLocalizedMessage() );
+        }
+        return resultValue;
+    }
+
+
+    @Override
     public List<User> getAllUsers() {
         List <User> resultList = null;
         try {

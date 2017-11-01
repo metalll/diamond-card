@@ -11,6 +11,7 @@ public interface DBUser {
     void removeUser(User user);
     User getUser(String login);
     User getUser(long id);
+    User getUserWithCard(String cashbackCard);
     List<User> getAllUsers();
     void validateUser(User user);
 }

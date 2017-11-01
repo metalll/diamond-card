@@ -38,4 +38,78 @@ public class Activity {
     @DatabaseField
     private boolean isSuccessComplete;
 
+    public Activity() {
+    }
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
+
+    public long getInitiatorId() {
+        return initiatorId;
+    }
+
+    public void setInitiatorId(long initiatorId) {
+        this.initiatorId = initiatorId;
+    }
+
+    public long getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(long targetId) {
+        this.targetId = targetId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getOperationValue() {
+        return operationValue;
+    }
+
+    public void setOperationValue(String operationValue) {
+        this.operationValue = operationValue;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getEndData() {
+        return endData;
+    }
+
+    public void setEndData(String endData) {
+        this.endData = endData;
+    }
+
+    public boolean isActiveOperation() {
+        return isActiveOperation;
+    }
+
+    public void setActiveOperation(boolean activeOperation) {
+        isActiveOperation = activeOperation;
+    }
+
+    public boolean isSuccessComplete() {
+        return isSuccessComplete;
+    }
+
+    public void setSuccessComplete(boolean successComplete) {
+        isSuccessComplete = successComplete;
+    }
 }
