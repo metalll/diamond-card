@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.nsd.diamondcard.Model.ContrAgent;
+import com.nsd.diamondcard.Model.ContrAgent;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -62,6 +63,21 @@ public class DBContrAgentImpl implements DBContrAgent {
         }catch (Exception e){
             System.err.println("Critical Error Update ContrAgent \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
+    }
+
+    @Override
+    public ContrAgent getContrAgentWithForeign(long foreignId) {
+        ContrAgent resultValue = null;
+        try{
+            List<ContrAgent> requestList = dao.queryForEq("foreignId",foreignId);
+            if (requestList.size() > 0 && requestList.size() < 2) {
+                resultValue = requestList.get(0);
+            }
+            dao.getConnectionSource().closeQuietly();
+        }catch (Exception e){
+            System.err.println("Critical Error Get ContrAgent With foreign \n -> stackTrace \n" + e.getLocalizedMessage() );
+        }
+        return resultValue;
     }
 
     @Override

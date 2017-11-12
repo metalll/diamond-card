@@ -9,6 +9,7 @@ public interface DBBuyer {
     void updateBuyer(Buyer Buyer);
     void removeBuyer(Buyer Buyer);
     Buyer getBuyer(String login);
+    Buyer getBuyerWithForeign(long foreignId);
     Buyer getBuyer(long id);
     List<Buyer> getAllBuyers();
     void validateBuyer(Buyer Buyer);

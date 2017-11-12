@@ -1,6 +1,8 @@
 package com.nsd.diamondcard.RESTfullAPI;
 
 import com.google.gson.Gson;
+import com.nsd.diamondcard.DBLayerControllers.DBBuyer;
+import com.nsd.diamondcard.DBLayerControllers.DBContrAgent;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
 import com.nsd.diamondcard.DBLayerControllers.DBUserImpl;
 import com.nsd.diamondcard.Model.JSONRequest;
@@ -21,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_BUYER;
+import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_CONTR_AGENT;
 import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_NONE;
 
 /**
@@ -35,6 +39,12 @@ public class ResponceAuth {
 
     @Autowired
     private DBUser userService;
+
+    @Autowired
+    private DBBuyer userBuyerService;
+
+    @Autowired
+    private DBContrAgent contrAgentService;
 
     @PostMapping(RESPONCE_AUTH_PATH)
     public String responceGet(){
@@ -57,13 +67,14 @@ public class ResponceAuth {
 
         String currUserName = user.getUsername();
 
-        System.out.println(Constants.CONSOLE_ANSI_YELLOW + "Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name() + Constants.CONSOLE_ANSI_RESET );
+        System.out.println("Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name());
 
         JSONRequest request = new JSONRequest();
         request.setData(new ArrayList());
 
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
+
             case ROLE_NONE:
                 request.setStatus("BAD");
                 break;
@@ -75,6 +86,12 @@ public class ResponceAuth {
                 request.getData().add(currentRole.name());
         }
 
+        if (currentRole == ROLE_BUYER) {
+            request.getData().add(userBuyerService.getBuyerWithForeign(tUser.getUserID()));
+        }
+        if (currentRole == ROLE_CONTR_AGENT) {
+            request.getData().add(contrAgentService.getContrAgentWithForeign(tUser.getUserID()));
+        }
         return gson.toJson(request);
     }
 }

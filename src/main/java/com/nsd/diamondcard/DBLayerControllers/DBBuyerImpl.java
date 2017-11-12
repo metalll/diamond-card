@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.nsd.diamondcard.Model.Buyer;
+import com.nsd.diamondcard.Model.User;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -78,6 +79,21 @@ public class DBBuyerImpl implements DBBuyer {
     public Buyer getBuyer(String email) {
 //
         return null;
+    }
+
+    @Override
+    public Buyer getBuyerWithForeign(long foreignId) {
+        Buyer resultValue = null;
+        try{
+            List<Buyer> requestList = dao.queryForEq("foreignId",foreignId);
+            if (requestList.size() > 0 && requestList.size() < 2) {
+                resultValue = requestList.get(0);
+            }
+            dao.getConnectionSource().closeQuietly();
+        }catch (Exception e){
+            System.err.println("Critical Error Get foreign With email \n -> stackTrace \n" + e.getLocalizedMessage() );
+        }
+        return resultValue;
     }
 
     @Override

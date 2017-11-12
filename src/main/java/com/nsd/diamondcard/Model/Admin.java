@@ -23,4 +23,35 @@ public class Admin {
     @DatabaseField
     private String surname;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getForeingSuperAdminId() {
+        return foreingSuperAdminId;
+    }
+
+    public void setForeingSuperAdminId(long foreingSuperAdminId) {
+        this.foreingSuperAdminId = foreingSuperAdminId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 }
