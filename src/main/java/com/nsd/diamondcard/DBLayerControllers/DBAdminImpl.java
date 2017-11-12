@@ -15,8 +15,6 @@ public class DBAdminImpl implements DBAdmin {
 
     public DBAdminImpl(){
         try {
-
-
             Class.forName("org.postgresql.Driver");}
         catch (Exception e) {
             e.printStackTrace();

@@ -8,6 +8,7 @@ import com.nsd.diamondcard.Model.JSONRequest;
 import com.nsd.diamondcard.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -32,29 +33,42 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 class RequestStruct {
-    private String userName;
+    public RequestStruct(){}
+
     private String email;
     private String passwordHash;
     private String userCashbackCard;
     private String userCashbackValue;
 
-    public String getUserName() {
-        return userName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getEmail() {
+    void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    void setUserCashbackCard(String userCashbackCard) {
+        this.userCashbackCard = userCashbackCard;
+    }
+
+    void setUserCashbackValue(String userCashbackValue) {
+        this.userCashbackValue = userCashbackValue;
+    }
+
+    String getEmail() {
         return email;
     }
 
-    public String getPasswordHash() {
+    String getPasswordHash() {
         return passwordHash;
     }
 
-    public String getUserCashbackCard() {
+    String getUserCashbackCard() {
         return userCashbackCard;
     }
 
-    public String getUserCashbackValue() {
+    String getUserCashbackValue() {
         return userCashbackValue;
     }
 }
@@ -75,17 +89,23 @@ public class RestActitvity {
     // 1-C cashback request
     // header X-AUTH = ReqBody data hash with hmacSha1 (RFC2104HMAC)
 
-    @RequestMapping(value = "/puscare",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/pushcare",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public String add(@RequestBody String reqBody,@RequestHeader(value = "X-AUTH") String hash) {
 
         boolean isValidReq = true;
 
         String calulatedHash = null;
         try {
-            calulatedHash = calculateRFC2104HMAC(reqBody,"simple_key");
+            calulatedHash = calculateRFC2104HMAC(reqBody,"XCV-2345-ER-VXC-OxB-212");
+
+            if (hash != calulatedHash) {
+             isValidReq = false;
+            }
         }catch (Exception e) {
             isValidReq = false;
         }
+
+
 
         Gson gson = new Gson();
 
@@ -122,14 +142,13 @@ public class RestActitvity {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_CONTR_AGENT')")
     @RequestMapping(value = "/activity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add(@RequestParam("userCashCard") String userCashCard,@RequestParam("type") String type,@RequestParam ("value") String value) {
         try {
             Gson gson = new Gson();
-
             Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
             Activity activity = new Activity();
-
             activity.setInitiatorId(userService.getUser(currentAuth.getName()).getUserID());
             activity.setTargetId(userService.getUserWithCard(userCashCard).getUserID());
             activity.setOperationValue(value);
@@ -138,9 +157,7 @@ public class RestActitvity {
             activity.setEndData("14");
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
-
             activityService.createActivity(activity);
-
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
             request.setData(new ArrayList());
@@ -156,18 +173,37 @@ public class RestActitvity {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/activity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String get() {
+        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.getUser(currentAuth.getName());
+
         Gson gson = new Gson();
         JSONRequest request = new JSONRequest();
         request.setStatus("OK");
         request.setData(new ArrayList());
         List<Activity>requestList = activityService.getAllActivitys();
         if (requestList!=null) {
-            request.getData().add(requestList);
+            List<Activity>filteredList = new ArrayList<>();
+
+            for (Activity item : requestList) {
+                if (item.isActiveOperation() &&
+                        ((item.getTargetId()==currentUser.getUserID())
+                                || (item.getInitiatorId() == currentUser.getUserID()))) {
+
+                    filteredList.add(item);
+
+                }
+            }
+            //noinspection unchecked
+            request.getData().add(filteredList);
         }
+
         return gson.toJson(request);
     }
+
+
 
     @RequestMapping(value = "/update/activity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String update() {

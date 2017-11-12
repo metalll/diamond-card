@@ -25,6 +25,17 @@ public class Buyer {
     @DatabaseField
     private long foreignTargetBuyerId;
 
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
+
+    @DatabaseField
+    private String isActive;
+
     @DatabaseField
     private long foreignAdminId;
 
