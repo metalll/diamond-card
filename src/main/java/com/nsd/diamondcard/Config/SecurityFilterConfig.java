@@ -22,6 +22,9 @@ import java.net.URISyntaxException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @Bean
     public ShaPasswordEncoder getShaPasswordEncoder(){
         return new ShaPasswordEncoder();
@@ -69,6 +72,8 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        if (securityProperties.isRequireSsl()) http.requiresChannel().anyRequest().requiresSecure();
 
         http.csrf().disable()
                 .authorizeRequests()
