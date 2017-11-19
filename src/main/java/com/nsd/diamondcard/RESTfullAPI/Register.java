@@ -32,6 +32,14 @@ public class Register {
     @PostMapping
     public String register(@RequestParam String email,@RequestParam String pass,@RequestParam String rePass) {
         try {
+
+            if (userService.getUser(email)!=null) {
+                JSONRequest request = new JSONRequest();
+                request.setStatus("USER_IS_EXIST");
+                request.setData(new ArrayList());
+                return new Gson().toJson(request);
+            }
+
             String uuid = UUID.randomUUID().toString().replace("-", "");
             User user = new User();
             user.setEmail(email);
@@ -63,7 +71,6 @@ public class Register {
 
         }
     }
-
 
     /*------------------ Sha1 Hash ------------ */
 

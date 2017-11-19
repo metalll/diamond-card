@@ -22,59 +22,9 @@ public class ScheduledTasks {
     public void acceptCashbaks() {
 
         System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
+
+
+
 
     }
 }
