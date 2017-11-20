@@ -78,7 +78,7 @@ public class DBUserImpl implements DBUser {
     public User getUser(String email) {
         User resultValue = null;
         try{
-            List<User> requestList = dao.queryForEq(User.COLUMN_EMAIL,email);
+            List<User> requestList = dao.queryForEq("EMAIL",email);
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
