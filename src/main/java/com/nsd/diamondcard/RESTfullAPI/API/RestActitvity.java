@@ -164,11 +164,11 @@ public class RestActitvity {
             long initiatorId = userService.getUser(currentAuth.getName()).getUserID();
 
             Buyer targetBuyer = userBuyerService.getBuyerWithForeign(targetUserId);
-            float shadow = targetBuyer.getBalance();
+            float shadow = targetBuyer.getShadowBalance();
             float preparedOperationValue = contrAgentService.getContrAgentWithForeign(initiatorId).getPercent() * Float.parseFloat(value);
 
             shadow += preparedOperationValue;
-                    targetBuyer.setBalance(shadow);
+            targetBuyer.setShadowBalance(shadow);
 
             Activity activity = new Activity();
             activity.setInitiatorId(initiatorId);
