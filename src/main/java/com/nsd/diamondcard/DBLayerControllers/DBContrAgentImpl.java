@@ -69,7 +69,7 @@ public class DBContrAgentImpl implements DBContrAgent {
     public ContrAgent getContrAgentWithForeign(long foreignId) {
         ContrAgent resultValue = null;
         try{
-            List<ContrAgent> requestList = dao.queryForEq("foreignId",foreignId);
+            List<ContrAgent> requestList = dao.queryForEq("foreingId",foreignId);
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
