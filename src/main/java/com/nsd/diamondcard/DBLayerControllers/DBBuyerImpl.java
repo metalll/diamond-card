@@ -32,7 +32,7 @@ public class DBBuyerImpl implements DBBuyer {
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,Buyername,password),Buyer.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),Buyer.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -49,7 +49,7 @@ public class DBBuyerImpl implements DBBuyer {
     public void createBuyer(Buyer Buyer) {
         try {
             dao.create(Buyer);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create Buyer \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -59,7 +59,7 @@ public class DBBuyerImpl implements DBBuyer {
     public void updateBuyer(Buyer Buyer) {
         try{
             dao.update(Buyer);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Buyer \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -69,7 +69,7 @@ public class DBBuyerImpl implements DBBuyer {
     public void removeBuyer(Buyer Buyer) {
         try{
             dao.delete(Buyer);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Buyer \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -90,7 +90,7 @@ public class DBBuyerImpl implements DBBuyer {
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get foreign With email \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -102,7 +102,7 @@ public class DBBuyerImpl implements DBBuyer {
         Buyer resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get Buyer With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -114,7 +114,7 @@ public class DBBuyerImpl implements DBBuyer {
         List <Buyer> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All Buyers \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

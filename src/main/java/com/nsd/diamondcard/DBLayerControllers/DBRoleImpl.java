@@ -37,7 +37,7 @@ public class DBRoleImpl implements DBRole {
 
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),UserRole.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -52,7 +52,7 @@ public class DBRoleImpl implements DBRole {
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get UserRole With email \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -63,7 +63,7 @@ public class DBRoleImpl implements DBRole {
     public void createRole(UserRole role) {
         try {
             dao.create(role);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create UserRole \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -73,7 +73,7 @@ public class DBRoleImpl implements DBRole {
     public void updateRole(UserRole role) {
         try{
             dao.update(role);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update UserRole \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -83,7 +83,7 @@ public class DBRoleImpl implements DBRole {
     public void removeRole(UserRole role) {
         try{
             dao.delete(role);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update UserRole \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

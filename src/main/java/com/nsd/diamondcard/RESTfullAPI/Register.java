@@ -2,10 +2,9 @@ package com.nsd.diamondcard.RESTfullAPI;
 
 import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.DBBuyer;
+import com.nsd.diamondcard.DBLayerControllers.DBRole;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
-import com.nsd.diamondcard.Model.Buyer;
-import com.nsd.diamondcard.Model.JSONRequest;
-import com.nsd.diamondcard.Model.User;
+import com.nsd.diamondcard.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.util.DigestUtils;
@@ -27,6 +26,9 @@ public class Register {
 
     @Autowired
     DBBuyer buyerService;
+
+    @Autowired
+    DBRole userRole;
 
     @PostMapping("/Reg")
     public String register(@RequestParam String email,@RequestParam String pass,@RequestParam String rePass) {
@@ -56,6 +58,12 @@ public class Register {
             buyer.setPercent(-1.0f);
 
             buyerService.createBuyer(buyer);
+
+            UserRole role = new UserRole();
+            role.setRole(UserRoleEnum.ROLE_BUYER);
+            role.setUserID(String.valueOf(buyer.getId()));
+
+            userRole.createRole(role);
 
 
             JSONRequest request = new JSONRequest();

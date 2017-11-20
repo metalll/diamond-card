@@ -31,7 +31,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,BuyerTargetname,password),BuyerTarget.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),BuyerTarget.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -48,7 +48,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
     public void createBuyerTarget(BuyerTarget BuyerTarget) {
         try {
             dao.create(BuyerTarget);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create BuyerTarget \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -58,7 +58,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
     public void updateBuyerTarget(BuyerTarget BuyerTarget) {
         try{
             dao.update(BuyerTarget);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update BuyerTarget \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -68,7 +68,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
     public void removeBuyerTarget(BuyerTarget BuyerTarget) {
         try{
             dao.delete(BuyerTarget);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update BuyerTarget \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -84,7 +84,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
         BuyerTarget resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get BuyerTarget With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -96,7 +96,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
         List <BuyerTarget> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All BuyerTargets \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

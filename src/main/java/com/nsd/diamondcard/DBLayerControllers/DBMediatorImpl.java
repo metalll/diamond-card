@@ -30,7 +30,7 @@ public class DBMediatorImpl implements DBMediator {
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,Mediatorname,password),Mediator.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),Mediator.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -47,7 +47,7 @@ public class DBMediatorImpl implements DBMediator {
     public void createMediator(Mediator Mediator) {
         try {
             dao.create(Mediator);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create Mediator \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -57,7 +57,7 @@ public class DBMediatorImpl implements DBMediator {
     public void updateMediator(Mediator Mediator) {
         try{
             dao.update(Mediator);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Mediator \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -67,7 +67,7 @@ public class DBMediatorImpl implements DBMediator {
     public void removeMediator(Mediator Mediator) {
         try{
             dao.delete(Mediator);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Mediator \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -84,7 +84,7 @@ public class DBMediatorImpl implements DBMediator {
         Mediator resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get Mediator With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -96,7 +96,7 @@ public class DBMediatorImpl implements DBMediator {
         List <Mediator> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All Mediators \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

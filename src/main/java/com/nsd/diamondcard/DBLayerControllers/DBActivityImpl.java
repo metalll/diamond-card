@@ -32,7 +32,7 @@ public class DBActivityImpl implements DBActivity {
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,Activityname,password),Activity.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),Activity.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -49,7 +49,7 @@ public class DBActivityImpl implements DBActivity {
     public void createActivity(Activity Activity) {
         try {
             dao.create(Activity);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -59,7 +59,7 @@ public class DBActivityImpl implements DBActivity {
     public void updateActivity(Activity Activity) {
         try{
             dao.update(Activity);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -69,7 +69,7 @@ public class DBActivityImpl implements DBActivity {
     public void removeActivity(Activity Activity) {
         try{
             dao.delete(Activity);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -85,7 +85,7 @@ public class DBActivityImpl implements DBActivity {
         Activity resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get Activity With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -97,7 +97,7 @@ public class DBActivityImpl implements DBActivity {
         List <Activity> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All Activitys \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

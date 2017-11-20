@@ -32,7 +32,7 @@ public class DBContrAgentImpl implements DBContrAgent {
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,ContrAgentname,password),ContrAgent.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),ContrAgent.class);
-                dao.getConnectionSource().closeQuietly();
+                dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -49,7 +49,7 @@ public class DBContrAgentImpl implements DBContrAgent {
     public void createContrAgent(ContrAgent ContrAgent) {
         try {
             dao.create(ContrAgent);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create ContrAgent \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -59,7 +59,7 @@ public class DBContrAgentImpl implements DBContrAgent {
     public void updateContrAgent(ContrAgent ContrAgent) {
         try{
             dao.update(ContrAgent);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update ContrAgent \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -73,7 +73,7 @@ public class DBContrAgentImpl implements DBContrAgent {
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get ContrAgent With foreign \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -84,7 +84,7 @@ public class DBContrAgentImpl implements DBContrAgent {
     public void removeContrAgent(ContrAgent ContrAgent) {
         try{
             dao.delete(ContrAgent);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update ContrAgent \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -100,7 +100,7 @@ public class DBContrAgentImpl implements DBContrAgent {
         ContrAgent resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get ContrAgent With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -112,7 +112,7 @@ public class DBContrAgentImpl implements DBContrAgent {
         List <ContrAgent> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().closeQuietly();
+            dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All ContrAgents \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
