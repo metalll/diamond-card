@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import static com.nsd.diamondcard.Utils.Constants.BUYER_TARGET_TABLE_NAME;
 
-@DatabaseTable(tableName = BUYER_TARGET_TABLE_NAME)
+@DatabaseTable
 public class BuyerTarget {
 
     public BuyerTarget(){}

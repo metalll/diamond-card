@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import static com.nsd.diamondcard.Utils.Constants.CONTR_AGENT_TABLE_NAME;
 
-@DatabaseTable(tableName = CONTR_AGENT_TABLE_NAME)
+@DatabaseTable
 public class ContrAgent {
 
     @DatabaseField(generatedId = true)

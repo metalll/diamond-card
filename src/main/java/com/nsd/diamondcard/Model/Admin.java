@@ -6,7 +6,7 @@ import org.hibernate.id.insert.AbstractSelectingDelegate;
 
 import static com.nsd.diamondcard.Utils.Constants.ADMIN_TABLE_NAME;
 
-@DatabaseTable(tableName = ADMIN_TABLE_NAME)
+@DatabaseTable
 public class Admin {
 
     public Admin(){}

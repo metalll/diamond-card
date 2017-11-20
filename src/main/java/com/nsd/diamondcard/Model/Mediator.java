@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import static com.nsd.diamondcard.Utils.Constants.MEDIATOR_TABLE_NAME;
 
-@DatabaseTable(tableName = MEDIATOR_TABLE_NAME)
+@DatabaseTable
 public class Mediator {
 
     public Mediator(){}

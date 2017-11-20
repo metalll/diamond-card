@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import static com.nsd.diamondcard.Utils.Constants.USERS_TABLE_NAME;
 
 
-@DatabaseTable(tableName = USERS_TABLE_NAME)
+@DatabaseTable
 public class User {
 
     public User() {

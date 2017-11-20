@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import static com.nsd.diamondcard.Utils.Constants.SUPER_ADMIN_TABLE_NAME;
 
-@DatabaseTable(tableName = SUPER_ADMIN_TABLE_NAME)
+@DatabaseTable
 public class SuperAdmin {
 
     public SuperAdmin(){}
