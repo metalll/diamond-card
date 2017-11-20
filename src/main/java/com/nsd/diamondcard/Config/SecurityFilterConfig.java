@@ -78,7 +78,7 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 //public
-                .antMatchers("/","/auth","/index","/regBuyer","/about","/news","/shops","/regulations","/shares","/promotional_codes","/user_office","/login","/logout","/error")
+                .antMatchers("/","/auth","/index","/regBuyer","/about","/news","/shops","/regulations","/shares","/promotional_codes","/user_office","/login","/logout","/error","/API/Reg")
                 .permitAll()
                 //protected
                 .antMatchers("/API**").hasAnyRole(UserRoleEnum.ROLE_BUYER.name(),UserRoleEnum.ROLE_CONTR_AGENT.name(),
