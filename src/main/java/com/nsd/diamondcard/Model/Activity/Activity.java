@@ -38,6 +38,12 @@ public class Activity {
     @DatabaseField
     private boolean isSuccessComplete;
 
+    @DatabaseField
+    private String preparedTagetOperationValue;
+
+
+
+
     public Activity() {
     }
 
@@ -111,5 +117,13 @@ public class Activity {
 
     public void setSuccessComplete(boolean successComplete) {
         isSuccessComplete = successComplete;
+    }
+
+    public String getPreparedTagetOperationValue() {
+        return preparedTagetOperationValue;
+    }
+
+    public void setPreparedTagetOperationValue(String preparedTagetOperationValue) {
+        this.preparedTagetOperationValue = preparedTagetOperationValue;
     }
 }

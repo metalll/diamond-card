@@ -28,7 +28,6 @@ public class Register {
     @Autowired
     DBBuyer buyerService;
 
-
     @PostMapping
     public String register(@RequestParam String email,@RequestParam String pass,@RequestParam String rePass) {
         try {

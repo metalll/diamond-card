@@ -81,6 +81,7 @@ public class DBBuyerImpl implements DBBuyer {
         return null;
     }
 
+
     @Override
     public Buyer getBuyerWithForeign(long foreignId) {
         Buyer resultValue = null;

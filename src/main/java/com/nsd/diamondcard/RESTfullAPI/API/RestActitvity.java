@@ -2,8 +2,11 @@ package com.nsd.diamondcard.RESTfullAPI.API;
 
 import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.DBActivity;
+import com.nsd.diamondcard.DBLayerControllers.DBBuyer;
+import com.nsd.diamondcard.DBLayerControllers.DBContrAgent;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
 import com.nsd.diamondcard.Model.Activity.Activity;
+import com.nsd.diamondcard.Model.Buyer;
 import com.nsd.diamondcard.Model.JSONRequest;
 import com.nsd.diamondcard.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +87,12 @@ public class RestActitvity {
     private DBUser userService;
 
     @Autowired
+    private DBBuyer userBuyerService;
+
+    @Autowired
+    private DBContrAgent contrAgentService;
+
+    @Autowired
     private DBActivity activityService;
 
     // 1-C cashback request
@@ -98,7 +107,7 @@ public class RestActitvity {
         try {
             calulatedHash = calculateRFC2104HMAC(reqBody,"XCV-2345-ER-VXC-OxB-212");
 
-            if (hash != calulatedHash) {
+            if (!hash.equals(calulatedHash)) {
              isValidReq = false;
             }
         }catch (Exception e) {
@@ -130,6 +139,9 @@ public class RestActitvity {
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
 
+
+
+
             JSONRequest request1 = new JSONRequest();
             request1.setStatus("OK");
             request1.setData(new ArrayList());
@@ -147,6 +159,9 @@ public class RestActitvity {
     public String add(@RequestParam("userCashCard") String userCashCard,@RequestParam("type") String type,@RequestParam ("value") String value) {
         try {
             Gson gson = new Gson();
+
+            long targetUserId = userService.getUserWithCard(userCashCard).getUserID();
+
             Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
             Activity activity = new Activity();
             activity.setInitiatorId(userService.getUser(currentAuth.getName()).getUserID());
@@ -155,9 +170,17 @@ public class RestActitvity {
             activity.setType(type);
             activity.setData(dateFormat.format(new Date()));
             activity.setEndData("14");
+
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
+
+            Buyer targetBuyer = userBuyerService.getBuyerWithForeign(targetUserId);
+            float shadow = targetBuyer.getBalance();
+            shadow += contrAgentService.getContrAgentWithForeign(activity.getInitiatorId()).getPercent() * Float.parseFloat(activity.getOperationValue());
+            targetBuyer.setBalance(shadow);
+            userBuyerService.updateBuyer(targetBuyer);
+
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
             request.setData(new ArrayList());
