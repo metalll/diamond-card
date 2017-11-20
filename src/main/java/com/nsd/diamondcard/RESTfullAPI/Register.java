@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping
+@RequestMapping("/API")
 public class Register {
 
     @Autowired
@@ -28,7 +28,7 @@ public class Register {
     @Autowired
     DBBuyer buyerService;
 
-    @PostMapping
+    @PostMapping("/Reg")
     public String register(@RequestParam String email,@RequestParam String pass,@RequestParam String rePass) {
         try {
 
