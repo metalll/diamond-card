@@ -82,8 +82,7 @@ public class Register {
     /*------------------ Sha1 Hash ------------ */
 
     public static String stringSha1Hash(String source) {
-        byte[] bytes = source.getBytes();
-        return byteArrayToHexString(bytes);
+        return new ShaPasswordEncoder().encodePassword(source,null);
     }
 
     public static String byteArrayToHexString(byte[] b) {
