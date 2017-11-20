@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping("/API")
+@RequestMapping()
 public class Register {
 
     @Autowired
