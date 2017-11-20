@@ -159,26 +159,30 @@ public class RestActitvity {
     public String add(@RequestParam("userCashCard") String userCashCard,@RequestParam("type") String type,@RequestParam ("value") String value) {
         try {
             Gson gson = new Gson();
-
-            long targetUserId = userService.getUserWithCard(userCashCard).getUserID();
-
             Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+            long targetUserId = userService.getUserWithCard(userCashCard).getUserID();
+            long initiatorId = userService.getUser(currentAuth.getName()).getUserID();
+
+            Buyer targetBuyer = userBuyerService.getBuyerWithForeign(targetUserId);
+            float shadow = targetBuyer.getBalance();
+            float preparedOperationValue = contrAgentService.getContrAgentWithForeign(initiatorId).getPercent() * Float.parseFloat(value);
+
+            shadow += preparedOperationValue;
+                    targetBuyer.setBalance(shadow);
+
             Activity activity = new Activity();
-            activity.setInitiatorId(userService.getUser(currentAuth.getName()).getUserID());
-            activity.setTargetId(userService.getUserWithCard(userCashCard).getUserID());
+            activity.setInitiatorId(initiatorId);
+            activity.setTargetId(targetUserId);
             activity.setOperationValue(value);
             activity.setType(type);
             activity.setData(dateFormat.format(new Date()));
             activity.setEndData("14");
-
+            activity.setPreparedTagetOperationValue(String.valueOf(preparedOperationValue));
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
 
-            Buyer targetBuyer = userBuyerService.getBuyerWithForeign(targetUserId);
-            float shadow = targetBuyer.getBalance();
-            shadow += contrAgentService.getContrAgentWithForeign(activity.getInitiatorId()).getPercent() * Float.parseFloat(activity.getOperationValue());
-            targetBuyer.setBalance(shadow);
+
             userBuyerService.updateBuyer(targetBuyer);
 
             JSONRequest request = new JSONRequest();
