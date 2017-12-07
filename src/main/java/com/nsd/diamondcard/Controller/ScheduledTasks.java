@@ -1,6 +1,7 @@
 package com.nsd.diamondcard.Controller;
 
 import com.nsd.diamondcard.DBLayerControllers.DBActivity;
+import com.nsd.diamondcard.DBLayerControllers.DBNotifationsKeys;
 import com.nsd.diamondcard.Model.Activity.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,12 +19,15 @@ public class ScheduledTasks {
     @Autowired
     DBActivity activityService;
 
+    @Autowired
+    DBNotifationsKeys notifationsKeys;
+
     @Scheduled(cron = "0 0 20 * * *")
     public void acceptCashbaks() {
 
         System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
 
-
+        System.out.println(notifationsKeys.hashCode());
 
 
     }
