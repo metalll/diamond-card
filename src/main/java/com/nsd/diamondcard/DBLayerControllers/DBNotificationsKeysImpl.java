@@ -31,7 +31,7 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
             String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,Mediatorname,password), NotificationKey.class);
             if(!dao.isTableExists()){
-                TableUtils.createTable(dao.getConnectionSource(),Mediator.class);
+                TableUtils.createTable(dao.getConnectionSource(),NotificationKey.class);
                 dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
