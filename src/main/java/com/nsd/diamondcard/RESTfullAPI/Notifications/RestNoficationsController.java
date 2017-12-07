@@ -27,6 +27,7 @@ public class RestNoficationsController {
     public String subscribe(@RequestParam("key")String key){
 
 
+
         return "BAD";
     }
 
