@@ -2,6 +2,7 @@ package com.nsd.diamondcard.RESTfullAPI.Notifications;
 
 
 import com.nsd.diamondcard.DBLayerControllers.DBNotifationsKeys;
+import com.nsd.diamondcard.Model.NotificationKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,10 @@ public class RestNoficationsController {
     public String subscribe(@RequestParam("key")String key){
 
 
-
+        NotificationKey key1 = new NotificationKey();
+        key1.setKey("e34232");
+        key1.setUserId(2);
+        keys.createNotificationKey(key1);
 
         return "BAD";
     }
