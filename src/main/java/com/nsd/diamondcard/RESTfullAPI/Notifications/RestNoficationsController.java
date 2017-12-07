@@ -27,11 +27,6 @@ public class RestNoficationsController {
     public String subscribe(@RequestParam("key")String key){
 
 
-        NotificationKey key1 = new NotificationKey();
-        key1.setKey("e34232");
-        key1.setUserId(2);
-        keys.createNotificationKey(key1);
-
         return "BAD";
     }
 

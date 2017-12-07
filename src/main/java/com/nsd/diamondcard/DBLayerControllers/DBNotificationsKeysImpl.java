@@ -9,6 +9,7 @@ import com.nsd.diamondcard.Model.NotificationKey;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by nsd on 07.12.17.
@@ -34,7 +35,7 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
                 TableUtils.createTable(dao.getConnectionSource(),NotificationKey.class);
                 dao.getConnectionSource().close();
             }
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e){e.printStackTrace();}
     }
 
     @Override
@@ -59,7 +60,16 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
     }
 
     public NotificationKey getNoficationKeyWithUserId(long userId) {
-        return null;
+        NotificationKey retVal = null;
+        try {
+            List<NotificationKey> retList = dao.queryForEq("userId",Long.parseLong(String.valueOf(userId)));
+            if (retList.size() > 0) {
+                retVal = retList.get(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Notifaction DB error get -> stack ->::" + e.getLocalizedMessage());
+        }
+        return retVal;
     }
 
     @Override
