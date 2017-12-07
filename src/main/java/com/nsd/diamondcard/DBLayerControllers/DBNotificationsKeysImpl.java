@@ -6,12 +6,14 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.nsd.diamondcard.Model.Mediator;
 import com.nsd.diamondcard.Model.NotificationKey;
+import org.springframework.stereotype.Service;
 
 import java.net.URI;
 
 /**
  * Created by nsd on 07.12.17.
  */
+@Service
 public class DBNotificationsKeysImpl implements DBNotifationsKeys {
 
     private Dao<NotificationKey,Long> dao;

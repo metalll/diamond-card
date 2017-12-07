@@ -1,6 +1,8 @@
 package com.nsd.diamondcard.RESTfullAPI.Notifications;
 
 
+import com.nsd.diamondcard.DBLayerControllers.DBNotifationsKeys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,9 @@ import java.awt.*;
 @RequestMapping(value = "/API")
 @RestController()
 public class RestNoficationsController {
+
+    @Autowired
+    private DBNotifationsKeys keys;
 
 
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
