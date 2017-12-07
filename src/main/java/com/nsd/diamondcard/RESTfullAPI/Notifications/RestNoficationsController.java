@@ -19,7 +19,7 @@ import java.awt.*;
 public class RestNoficationsController {
 
     @Autowired
-    private DBNotifationsKeys keys;
+    DBNotifationsKeys keys;
 
 
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
