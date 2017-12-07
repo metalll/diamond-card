@@ -61,7 +61,9 @@ public class Register {
 
             UserRole role = new UserRole();
             role.setRole(UserRoleEnum.ROLE_BUYER);
-            role.setUserID(String.valueOf(buyer.getId()));
+            role.setUserID(String.valueOf(user.getUserID()));
+
+
 
             userRole.createRole(role);
 
