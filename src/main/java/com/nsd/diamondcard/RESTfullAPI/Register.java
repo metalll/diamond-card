@@ -31,10 +31,10 @@ public class Register {
     DBRole userRole;
 
     @PostMapping("/Reg")
-    public String register(@RequestParam String email,@RequestParam String pass,@RequestParam String rePass) {
+    public String register(@RequestParam String email, @RequestParam String pass, @RequestParam String rePass) {
         try {
 
-            if (userService.getUser(email)!=null) {
+            if (userService.getUser(email) != null) {
                 JSONRequest request = new JSONRequest();
                 request.setStatus("USER_IS_EXIST");
                 request.setData(new ArrayList());
@@ -63,10 +63,7 @@ public class Register {
             role.setRole(UserRoleEnum.ROLE_BUYER);
             role.setUserID(String.valueOf(user.getUserID()));
 
-
-
             userRole.createRole(role);
-
 
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
@@ -84,14 +81,14 @@ public class Register {
     /*------------------ Sha1 Hash ------------ */
 
     public static String stringSha1Hash(String source) {
-        return new ShaPasswordEncoder().encodePassword(source,null);
+        return new ShaPasswordEncoder().encodePassword(source, null);
     }
 
     public static String byteArrayToHexString(byte[] b) {
         String result = "";
-        for (int i=0; i < b.length; i++) {
+        for (int i = 0; i < b.length; i++) {
             result +=
-                    Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
+                    Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
         }
         return result;
     }
