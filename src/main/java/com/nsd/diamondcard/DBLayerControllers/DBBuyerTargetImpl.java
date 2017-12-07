@@ -44,9 +44,19 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
 
     }
 
+    private void createConnectionIfNeeded() {
+        if (dao != null) {
+
+
+
+        }
+    }
+
+
     @Override
     public void createBuyerTarget(BuyerTarget BuyerTarget) {
         try {
+
             dao.create(BuyerTarget);
             dao.getConnectionSource().close();
         }catch (Exception e){
@@ -66,6 +76,7 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
 
     @Override
     public void removeBuyerTarget(BuyerTarget BuyerTarget) {
+
         try{
             dao.delete(BuyerTarget);
             dao.getConnectionSource().close();
