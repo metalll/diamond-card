@@ -207,7 +207,7 @@ public class RestActitvity {
 
 
                         final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
-                        payloadBuilder.setAlertBody("Запрос на кешбек");
+                        payloadBuilder.setAlertBody("{\"aps\":{\"alert\":\"Запрос на кешбек\",\"badge\":1,\"sound\":\"default\"}}");
 
                         final String payload = payloadBuilder.buildWithDefaultMaximumLength();
                         final String token = TokenUtil.sanitizeTokenString(targetUserToken);
