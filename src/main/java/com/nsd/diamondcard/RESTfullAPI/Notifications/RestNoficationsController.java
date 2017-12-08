@@ -38,6 +38,9 @@ public class RestNoficationsController {
             return "BAD";
         }
 
+
+        System.out.println("key = " + key);
+
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
         String userName = currentAuth.getName();
 
@@ -56,6 +59,7 @@ public class RestNoficationsController {
             keyN = new NotificationKey();
             keyN.setUserId(userId);
             keyN.setKey(key);
+            keysManager.createNotificationKey(keyN);
             return "OK";
         }
     }
