@@ -199,7 +199,7 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("/app/diamondCard.p12"), "ЙфяЦыч321").build();
+                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").build();
 
 
 
@@ -211,6 +211,7 @@ public class RestActitvity {
 
                         final String payload = payloadBuilder.buildWithDefaultMaximumLength();
                         final String token = TokenUtil.sanitizeTokenString(targetUserToken);
+                        System.out.println(token);
 
                         pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
 
