@@ -199,7 +199,7 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").build();
+                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("https://gateway.sandbox.push-apple.com.akadns.net").build();
 
 
 
