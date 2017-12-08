@@ -197,7 +197,7 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File(classLoader.getResource("diamondCard.p12").getFile()), "QazWsx321").build();
+                            .setClientCredentials(new File(classLoader.getResource("/static/diamondCard.p12").getFile()), "QazWsx321").build();
 
                     final SimpleApnsPushNotification pushNotification;
 
