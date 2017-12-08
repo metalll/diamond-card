@@ -8,9 +8,11 @@ import com.nsd.diamondcard.Model.JSONRequest;
 import com.nsd.diamondcard.Model.User;
 import com.turo.pushy.apns.ApnsClient;
 import com.turo.pushy.apns.ApnsClientBuilder;
+import com.turo.pushy.apns.PushNotificationResponse;
 import com.turo.pushy.apns.util.ApnsPayloadBuilder;
 import com.turo.pushy.apns.util.SimpleApnsPushNotification;
 import com.turo.pushy.apns.util.TokenUtil;
+import io.netty.util.concurrent.Future;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -203,7 +205,7 @@ public class RestActitvity {
 
                     final SimpleApnsPushNotification pushNotification;
 
-                    {
+
                         final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
                         payloadBuilder.setAlertBody("Запрос на кешбек");
 
@@ -211,7 +213,11 @@ public class RestActitvity {
                         final String token = TokenUtil.sanitizeTokenString(targetUserToken);
 
                         pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
-                    }
+
+                    final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
+                            apnsClient.sendNotification(pushNotification);
+
+
 
 
                 } catch (Exception e) {
