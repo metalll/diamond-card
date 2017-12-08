@@ -36,6 +36,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.Formatter;
+import java.util.concurrent.ExecutionException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -218,6 +219,25 @@ public class RestActitvity {
                     final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
                             apnsClient.sendNotification(pushNotification);
 
+                    try {
+                        final PushNotificationResponse<SimpleApnsPushNotification> pushNotificationResponse =
+                                sendNotificationFuture.get();
+
+                        if (pushNotificationResponse.isAccepted()) {
+                            System.out.println("Push notification accepted by APNs gateway.");
+                        } else {
+                            System.out.println("Notification rejected by the APNs gateway: " +
+                                    pushNotificationResponse.getRejectionReason());
+
+                            if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
+                                System.out.println("\t…and the token is invalid as of " +
+                                        pushNotificationResponse.getTokenInvalidationTimestamp());
+                            }
+                        }
+                    } catch (final ExecutionException e) {
+                        System.err.println("Failed to send push notification.");
+                        e.printStackTrace();
+                    }
 
 
 
