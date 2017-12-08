@@ -1,14 +1,16 @@
 package com.nsd.diamondcard.RESTfullAPI.API;
 
 import com.google.gson.Gson;
-import com.nsd.diamondcard.DBLayerControllers.DBActivity;
-import com.nsd.diamondcard.DBLayerControllers.DBBuyer;
-import com.nsd.diamondcard.DBLayerControllers.DBContrAgent;
-import com.nsd.diamondcard.DBLayerControllers.DBUser;
+import com.nsd.diamondcard.DBLayerControllers.*;
 import com.nsd.diamondcard.Model.Activity.Activity;
 import com.nsd.diamondcard.Model.Buyer;
 import com.nsd.diamondcard.Model.JSONRequest;
 import com.nsd.diamondcard.Model.User;
+import com.turo.pushy.apns.ApnsClient;
+import com.turo.pushy.apns.ApnsClientBuilder;
+import com.turo.pushy.apns.util.ApnsPayloadBuilder;
+import com.turo.pushy.apns.util.SimpleApnsPushNotification;
+import com.turo.pushy.apns.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.soap.SAAJResult;
+import java.io.File;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
@@ -94,6 +97,9 @@ public class RestActitvity {
 
     @Autowired
     private DBActivity activityService;
+
+    @Autowired
+    private DBNotifationsKeys notifationsKeysService;
 
     // 1-C cashback request
     // header X-AUTH = ReqBody data hash with hmacSha1 (RFC2104HMAC)
@@ -181,9 +187,43 @@ public class RestActitvity {
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
-
-
             userBuyerService.updateBuyer(targetBuyer);
+
+
+
+            String targetUserToken = notifationsKeysService.getNoficationKeyWithUserId(targetUserId).getKey();
+
+            if (targetUserToken != null) {
+                ClassLoader classLoader = getClass().getClassLoader();
+                try {
+                    final ApnsClient apnsClient = new ApnsClientBuilder()
+                            .setClientCredentials(new File(classLoader.getResource("diamondCard.p12").getFile()), "QazWsx321").build();
+
+                    final SimpleApnsPushNotification pushNotification;
+
+                    {
+                        final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+                        payloadBuilder.setAlertBody("Запрос на кешбек");
+
+                        final String payload = payloadBuilder.buildWithDefaultMaximumLength();
+                        final String token = TokenUtil.sanitizeTokenString(targetUserToken);
+
+                        pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+
+
+
+
+            }
+
+
 
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
