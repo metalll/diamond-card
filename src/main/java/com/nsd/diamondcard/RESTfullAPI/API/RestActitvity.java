@@ -199,7 +199,7 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("https://gateway.sandbox.push-apple.com.akadns.net").build();
+                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("gateway.sandbox.push.apple.com").build();
 
 
 
@@ -207,7 +207,7 @@ public class RestActitvity {
 
 
                         final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
-                        payloadBuilder.setAlertBody("{\"aps\":{\"alert\":\"Запрос на кешбек\",\"badge\":1,\"sound\":\"default\"}}");
+                        payloadBuilder.setAlertBody("hi!");
 
                         final String payload = payloadBuilder.buildWithDefaultMaximumLength();
                         final String token = TokenUtil.sanitizeTokenString(targetUserToken);
