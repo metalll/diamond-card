@@ -197,7 +197,9 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("diamondCard.p12"), "QazWsx321").build();
+                            .setClientCredentials(new File("/diamondCard.p12"), "QazWsx321").build();
+
+
 
                     final SimpleApnsPushNotification pushNotification;
 
@@ -214,6 +216,19 @@ public class RestActitvity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
+
+                    File f = new File("."); // current directory
+
+                    File[] files = f.listFiles();
+                    for (File file : files) {
+                        if (file.isDirectory()) {
+                            System.out.print("directory:");
+                        } else {
+                            System.out.print("     file:");
+                        }
+                        System.out.println(file.getCanonicalPath());
+                    }
 
 
                 }
