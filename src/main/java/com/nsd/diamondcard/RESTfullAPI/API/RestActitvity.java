@@ -200,7 +200,7 @@ public class RestActitvity {
                 ClassLoader classLoader = getClass().getClassLoader();
                 try {
                     final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("gateway.sandbox.push.apple.com").build();
+                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("api.development.push.apple.com",443).build();
 
 
 
