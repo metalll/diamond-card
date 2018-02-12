@@ -41,6 +41,7 @@ public class AlphaBankClient {
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         }
     }
 
