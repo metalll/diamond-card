@@ -38,7 +38,7 @@ public class AlphaBankClient {
             Response response = req.execute();
             this.currentPartner = (AlphaBankPartner) response.body();
             System.out.println(currentPartner);
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
@@ -47,7 +47,8 @@ public class AlphaBankClient {
 
 
 
-
-
+    AlphaBankPartner getCurrentPartner (){
+        return this.currentPartner;
+    }
 
 }

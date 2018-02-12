@@ -55,6 +55,11 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
         String username = System.getenv("JDBC_DATABASE_USERNAME");
         String password = System.getenv("JDBC_DATABASE_PASSWORD");
 
+
+        System.out.println("dbURL + " +dbUrl);
+        System.out.println("JDBC + " +username);
+        System.out.println("Passwd + " +password);
+
         DataSource basicDataSource = new DataSource();
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
