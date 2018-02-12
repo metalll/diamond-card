@@ -28,6 +28,7 @@ public class User {
     @DatabaseField(columnName = COLUMN_EMAIL, unique = true)
     private String email;
 
+
     @DatabaseField(columnName = COLUMN_PASSWD)
     private String passwd;
 

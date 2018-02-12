@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.nsd.diamondcard.Model.Activity.Activity;
 import com.nsd.diamondcard.Model.User;
 import com.nsd.diamondcard.Model.UserRole;
 import com.nsd.diamondcard.Utils.Constants;
@@ -17,21 +18,10 @@ public class DBUserImpl implements DBUser {
 
     public DBUserImpl(){
         try {
-            Class.forName("org.postgresql.Driver");}
-            catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-            String username = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-            dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,username,password),User.class);
-             if(!dao.isTableExists()){
+            dao = DaoManager.createDao(DBConnectionFactory.getSource(),User.class);
+            if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),User.class);
-                dao.getConnectionSource().close();
+                //   //dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 
@@ -48,7 +38,7 @@ public class DBUserImpl implements DBUser {
     public void createUser(User user) {
         try {
             dao.create(user);
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Create User \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -58,7 +48,7 @@ public class DBUserImpl implements DBUser {
     public void updateUser(User user) {
         try{
             dao.update(user);
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update User \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -68,7 +58,7 @@ public class DBUserImpl implements DBUser {
     public void removeUser(User user) {
         try{
             dao.delete(user);
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Update User \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -82,7 +72,7 @@ public class DBUserImpl implements DBUser {
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get User With email \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -94,7 +84,7 @@ public class DBUserImpl implements DBUser {
         User resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get User With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -109,7 +99,7 @@ public class DBUserImpl implements DBUser {
             if (requestList.size() > 0 && requestList.size() < 2) {
                 resultValue = requestList.get(0);
             }
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get User With email \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -122,7 +112,7 @@ public class DBUserImpl implements DBUser {
         List <User> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().close();
+            //dao.getConnectionSource().close();
         }catch (Exception e){
             System.err.println("Critical Error Get All Users \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
