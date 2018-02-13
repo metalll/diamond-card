@@ -16,13 +16,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@ComponentScan
 @SpringBootApplication
+@ComponentScan
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @EnableScheduling
 public class DiamondCardApplication {
-
-
 
 	@Bean
 	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {

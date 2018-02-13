@@ -22,7 +22,7 @@ public class DBMediatorImpl implements DBMediator {
                 //   dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
-    };
+    }
 
     private Dao<Mediator,Long> dao;
 

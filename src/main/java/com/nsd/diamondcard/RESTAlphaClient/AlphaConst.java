@@ -9,12 +9,5 @@ public class AlphaConst {
     public static final String DEBUG_PARTNERS_PASSWORD = "test_user_secret";
     public static final String DEBUG_USER1_LOGIN= "0631703583";
     public static final String DEBUG_USER1_PASSWORD = "000000";
-
-
     public static final String HEADER_AUTH_KEY = "Authorization";
-
-
-
-
-
 }

@@ -25,9 +25,9 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 20 * * *")
     public void acceptCashbaks() {
 
-        System.out.println(dateFormat.format(new Date()) + "::::: Apply changes With CASHB");
 
-        System.out.println(notifationsKeys.hashCode());
+
+
 
 
     }

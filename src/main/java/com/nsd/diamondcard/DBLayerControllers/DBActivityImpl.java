@@ -5,7 +5,9 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import com.nsd.diamondcard.BaseUtils.Logger;
 import com.nsd.diamondcard.Model.Activity.Activity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -14,57 +16,50 @@ import java.util.List;
 @Service
 public class DBActivityImpl implements DBActivity {
 
+    @Autowired
+    private Logger logger;
+
     public DBActivityImpl(){
       try {
             dao = DaoManager.createDao(DBConnectionFactory.getSource(),Activity.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),Activity.class);
-             //   dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
-
     }
 
     private Dao<Activity,Long> dao;
 
     @Override
-    public void validateActivity(Activity Activity){
+    public void validateActivity(Activity activity){
 
     }
 
     @Override
-    public void createActivity(Activity Activity) {
+    public void createActivity(Activity activity) {
         try {
-            dao.create(Activity);
-         //   dao.getConnectionSource().close();
+            dao.create(activity);
         }catch (Exception e){
-            System.err.println("Critical Error Create Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
+            logger.log("DBActivityImpl -> createActivity -> " + e.getMessage());
         }
     }
 
     @Override
-    public void updateActivity(Activity Activity) {
+    public void updateActivity(Activity activity) {
         try{
-            dao.update(Activity);
-         //   dao.getConnectionSource().close();
+            dao.update(activity);
         }catch (Exception e){
-            System.err.println("Critical Error Update Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
+            logger.log("DBActivityImpl -> updateActivity -> " + e.getMessage());
         }
     }
 
     @Override
-    public void removeActivity(Activity Activity) {
+    public void removeActivity(Activity activity) {
         try{
-            dao.delete(Activity);
-        //    dao.getConnectionSource().close();
+            dao.delete(activity);
         }catch (Exception e){
-            System.err.println("Critical Error Update Activity \n -> stackTrace \n" + e.getLocalizedMessage() );
+            logger.log("DBActivityImpl -> removeActivity -> " + e.getMessage());
         }
-    }
-
-    @Override
-    public Activity getActivity(String email) {
-        return null;
     }
 
     @Override
@@ -72,9 +67,8 @@ public class DBActivityImpl implements DBActivity {
         Activity resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-         //   dao.getConnectionSource().close();
         }catch (Exception e){
-            System.err.println("Critical Error Get Activity With id \n -> stackTrace \n" + e.getLocalizedMessage() );
+            logger.log("DBActivityImpl -> getActivity -> " + e.getMessage());
         }
         return resultValue;
     }
@@ -84,9 +78,8 @@ public class DBActivityImpl implements DBActivity {
         List <Activity> resultList = null;
         try {
             resultList = dao.queryForAll();
-          //  dao.getConnectionSource().close();
         }catch (Exception e){
-            System.err.println("Critical Error Get All Activitys \n -> stackTrace \n" + e.getLocalizedMessage() );
+            logger.log("DBActivityImpl -> getActivity -> " + e.getMessage());
         }
         return resultList;
     }
