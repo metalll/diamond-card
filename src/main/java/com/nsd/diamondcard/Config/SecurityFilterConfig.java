@@ -49,19 +49,6 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
     private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 
 
-    @Bean
-    public DataSource dataSource() throws URISyntaxException {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        String username = System.getenv("JDBC_DATABASE_USERNAME");
-        String password = System.getenv("JDBC_DATABASE_PASSWORD");
-
-        DataSource basicDataSource = new DataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
-    }
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {

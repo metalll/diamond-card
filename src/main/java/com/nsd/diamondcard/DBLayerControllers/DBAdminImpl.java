@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.nsd.diamondcard.Model.Activity.Activity;
 import com.nsd.diamondcard.Model.Admin;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +16,10 @@ public class DBAdminImpl implements DBAdmin {
 
     public DBAdminImpl(){
         try {
-            Class.forName("org.postgresql.Driver");}
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-            String Adminname = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-            dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,Adminname,password),Admin.class);
+            dao = DaoManager.createDao(DBConnectionFactory.getSource(),Admin.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),Admin.class);
-                dao.getConnectionSource().close();
+                //   dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
 

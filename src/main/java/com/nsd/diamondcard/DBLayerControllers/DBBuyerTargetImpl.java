@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.nsd.diamondcard.Model.Activity.Activity;
 import com.nsd.diamondcard.Model.BuyerTarget;
 import org.springframework.stereotype.Service;
 
@@ -15,26 +16,12 @@ public class DBBuyerTargetImpl implements DBBuyerTarget {
 
     public DBBuyerTargetImpl(){
         try {
-
-
-            Class.forName("org.postgresql.Driver");}
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-            String BuyerTargetname = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-            dao = DaoManager.createDao(new JdbcConnectionSource(dbUrl,BuyerTargetname,password),BuyerTarget.class);
+            dao = DaoManager.createDao(DBConnectionFactory.getSource(),BuyerTarget.class);
             if(!dao.isTableExists()){
                 TableUtils.createTable(dao.getConnectionSource(),BuyerTarget.class);
-                dao.getConnectionSource().close();
+                //   dao.getConnectionSource().close();
             }
         }catch (Exception e){e.printStackTrace();}
-
     };
 
     private Dao<BuyerTarget,Long> dao;
