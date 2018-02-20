@@ -3,6 +3,7 @@ package com.nsd.diamondcard.BaseUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import java.util.Map;
 
 
@@ -20,7 +21,7 @@ public class GsonTools {
 
     }
 
-    public static void extendJsonObject(JsonObject destinationObject, ConflictStrategy conflictResolutionStrategy, JsonObject ... objs)
+    public static void extendJsonObject(JsonObject destinationObject, ConflictStrategy conflictResolutionStrategy, JsonObject... objs)
             throws JsonObjectExtensionConflictException {
         for (JsonObject obj : objs) {
             extendJsonObject(destinationObject, obj, conflictResolutionStrategy);

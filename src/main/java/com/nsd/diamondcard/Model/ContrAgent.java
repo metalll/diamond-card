@@ -16,6 +16,12 @@ public class ContrAgent {
     private String image;
 
     @DatabaseField
+    private float locationLatitude;
+
+    @DatabaseField
+    private float locationLongitude;
+
+    @DatabaseField
     private int rating;
 
     @DatabaseField
@@ -26,6 +32,9 @@ public class ContrAgent {
 
     @DatabaseField
     private float percent;
+
+    @DatabaseField
+    private long millisecondToAppruveCashback;
 
     @DatabaseField
     private long foreingId;
@@ -78,12 +87,35 @@ public class ContrAgent {
         this.percent = percent;
     }
 
-
     public long getForeingId() {
         return foreingId;
     }
 
     public void setForeingId(long foreingId) {
         this.foreingId = foreingId;
+    }
+
+    public long getMillisecondToAppruveCashback() {
+        return millisecondToAppruveCashback;
+    }
+
+    public void setMillisecondToAppruveCashback(long millisecondToAppruveCashback) {
+        this.millisecondToAppruveCashback = millisecondToAppruveCashback;
+    }
+
+    public float getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(float locationLongitude) {
+        this.locationLongitude = locationLongitude;
+    }
+
+    public float getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(float locationLatitude) {
+        this.locationLatitude = locationLatitude;
     }
 }

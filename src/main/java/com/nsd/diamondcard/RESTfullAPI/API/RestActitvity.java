@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.*;
 import com.nsd.diamondcard.Model.Activity.Activity;
 import com.nsd.diamondcard.Model.Buyer;
+import com.nsd.diamondcard.Model.ContrAgent;
 import com.nsd.diamondcard.Model.JSONRequest;
 import com.nsd.diamondcard.Model.User;
 import com.turo.pushy.apns.ApnsClient;
@@ -136,14 +137,14 @@ public class RestActitvity {
 
         User targetUser = userService.getUserWithCard(request.getUserCashbackCard());
 
-        if (isValidReq && (targetUser != null) && (contrAgent !=null) && (calulatedHash != null) && (request.getUserCashbackValue()!= null)) {
+        if (isValidReq && (targetUser != null) && (contrAgent !=null) && (request.getUserCashbackValue()!= null)) {
             Activity activity = new Activity();
             activity.setInitiatorId(contrAgent.getUserID());
             activity.setTargetId(targetUser.getUserID());
             activity.setOperationValue(request.getUserCashbackValue());
             activity.setType("CASHB");
-            activity.setData(dateFormat.format(new Date()));
-            activity.setEndData("14");
+         //   activity.setData(dateFormat.format(new Date()));
+        //    activity.setEndData("14");
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
@@ -168,13 +169,17 @@ public class RestActitvity {
     public String add(@RequestParam("userCashCard") String userCashCard,@RequestParam("type") String type,@RequestParam ("value") String value) {
         try {
             Gson gson = new Gson();
+
+
+
             Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
             long targetUserId = userService.getUserWithCard(userCashCard).getUserID();
             long initiatorId = userService.getUser(currentAuth.getName()).getUserID();
+            ContrAgent initiatorContrAgent = contrAgentService.getContrAgentWithForeign(initiatorId);
 
             Buyer targetBuyer = userBuyerService.getBuyerWithForeign(targetUserId);
             float shadow = targetBuyer.getShadowBalance();
-            float preparedOperationValue = contrAgentService.getContrAgentWithForeign(initiatorId).getPercent() * Float.parseFloat(value);
+            float preparedOperationValue = initiatorContrAgent.getPercent() * Float.parseFloat(value);
 
             shadow += preparedOperationValue;
             targetBuyer.setShadowBalance(shadow);
@@ -184,8 +189,9 @@ public class RestActitvity {
             activity.setTargetId(targetUserId);
             activity.setOperationValue(value);
             activity.setType(type);
-            activity.setData(dateFormat.format(new Date()));
-            activity.setEndData("14");
+            activity.setDate(System.currentTimeMillis());
+            activity.setDateOffset(initiatorContrAgent.getMillisecondToAppruveCashback());
+
             activity.setPreparedTagetOperationValue(String.valueOf(preparedOperationValue));
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);

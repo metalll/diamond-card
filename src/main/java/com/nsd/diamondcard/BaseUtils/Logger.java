@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class Logger {
 
-    public Logger() {}
+    public Logger() {
+    }
 
     private org.slf4j.Logger log = null;
 

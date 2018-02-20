@@ -19,8 +19,8 @@ public class DBBuyerImpl implements DBBuyer {
         try {
             dao = DaoManager.createDao(DBConnectionFactory.getSource(),Buyer.class);
             if(!dao.isTableExists()){
-                TableUtils.createTable(dao.getConnectionSource(),Activity.class);
-                //   dao.getConnectionSource().close();
+                TableUtils.createTable(dao.getConnectionSource(),Buyer.class);
+
             }
         }catch (Exception e){e.printStackTrace();}
 

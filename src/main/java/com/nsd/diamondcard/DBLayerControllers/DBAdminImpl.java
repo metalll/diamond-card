@@ -36,7 +36,7 @@ public class DBAdminImpl implements DBAdmin {
     public void createAdmin(Admin Admin) {
         try {
             dao.create(Admin);
-            dao.getConnectionSource().close();
+
         }catch (Exception e){
             System.err.println("Critical Error Create Admin \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -46,7 +46,7 @@ public class DBAdminImpl implements DBAdmin {
     public void updateAdmin(Admin Admin) {
         try{
             dao.update(Admin);
-            dao.getConnectionSource().close();
+
         }catch (Exception e){
             System.err.println("Critical Error Update Admin \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -56,7 +56,7 @@ public class DBAdminImpl implements DBAdmin {
     public void removeAdmin(Admin Admin) {
         try{
             dao.delete(Admin);
-            dao.getConnectionSource().close();
+
         }catch (Exception e){
             System.err.println("Critical Error Update Admin \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -73,7 +73,7 @@ public class DBAdminImpl implements DBAdmin {
         Admin resultValue = null;
         try{
             resultValue = dao.queryForId(id);
-            dao.getConnectionSource().close();
+
         }catch (Exception e){
             System.err.println("Critical Error Get Admin With id \n -> stackTrace \n" + e.getLocalizedMessage() );
         }
@@ -85,7 +85,7 @@ public class DBAdminImpl implements DBAdmin {
         List <Admin> resultList = null;
         try {
             resultList = dao.queryForAll();
-            dao.getConnectionSource().close();
+
         }catch (Exception e){
             System.err.println("Critical Error Get All Admins \n -> stackTrace \n" + e.getLocalizedMessage() );
         }

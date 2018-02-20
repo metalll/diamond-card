@@ -3,6 +3,8 @@ package com.nsd.diamondcard.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.List;
+
 import static com.nsd.diamondcard.Utils.Constants.BUYER_TABLE_NAME;
 
 @DatabaseTable

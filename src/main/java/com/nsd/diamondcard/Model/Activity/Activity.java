@@ -27,10 +27,10 @@ public class Activity {
     private String operationValue;
 
     @DatabaseField
-    private String data;
+    private long date;
 
     @DatabaseField
-    private String endData;
+    private long dateOffset;
 
     @DatabaseField
     private boolean isActiveOperation;
@@ -40,8 +40,6 @@ public class Activity {
 
     @DatabaseField
     private String preparedTagetOperationValue;
-
-
 
 
     public Activity() {
@@ -87,22 +85,6 @@ public class Activity {
         this.operationValue = operationValue;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getEndData() {
-        return endData;
-    }
-
-    public void setEndData(String endData) {
-        this.endData = endData;
-    }
-
     public boolean isActiveOperation() {
         return isActiveOperation;
     }
@@ -125,5 +107,21 @@ public class Activity {
 
     public void setPreparedTagetOperationValue(String preparedTagetOperationValue) {
         this.preparedTagetOperationValue = preparedTagetOperationValue;
+    }
+
+    public long getDateOffset() {
+        return dateOffset;
+    }
+
+    public void setDateOffset(long dateOffset) {
+        this.dateOffset = dateOffset;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }

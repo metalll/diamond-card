@@ -1,11 +1,9 @@
 package com.nsd.diamondcard.Config;
 
-import com.allanditzel.springframework.security.web.csrf.CsrfTokenResponseHeaderBindingFilter;
 import com.nsd.diamondcard.Model.UserRoleEnum;
 import com.nsd.diamondcard.Security.RESTAuthenticationEntryPoint;
 import com.nsd.diamondcard.Security.RESTAuthenticationFailureHandler;
 import com.nsd.diamondcard.Security.RESTAuthenticationSuccessHandler;
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +13,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.csrf.CsrfFilter;
-
-import java.net.URISyntaxException;
 
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
@@ -26,15 +21,14 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
     private SecurityProperties securityProperties;
 
     @Bean
-    public ShaPasswordEncoder getShaPasswordEncoder(){
+    public ShaPasswordEncoder getShaPasswordEncoder() {
         return new ShaPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService getUserDetailsService(){
+    public UserDetailsService getUserDetailsService() {
         return new UserDetailsServiceImpl();
     }
-
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -48,8 +42,6 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 
-
-
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -60,27 +52,29 @@ public class SecurityFilterConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        if (securityProperties.isRequireSsl()) http.requiresChannel().anyRequest().requiresSecure();
+        if (securityProperties.isRequireSsl()) {
+            http.requiresChannel().anyRequest().requiresSecure();
+        }
 
         http.csrf().disable()
                 .authorizeRequests()
                 //public
-                .antMatchers("/","/auth","/index","/regBuyer","/about","/news","/shops","/regulations","/shares","/promotional_codes","/user_office","/login","/logout","/error","/Reg")
+                .antMatchers("/", "/auth", "/index", "/regBuyer", "/about", "/news", "/shops", "/regulations", "/shares", "/promotional_codes", "/user_office", "/login", "/logout", "/error", "/Reg")
                 .permitAll()
+
                 //protected
-                .antMatchers("/API**").hasAnyRole(UserRoleEnum.ROLE_BUYER.name(),UserRoleEnum.ROLE_CONTR_AGENT.name(),
-                UserRoleEnum.ROLE_MEDIATIOR.name(),UserRoleEnum.ROLE_TARGET_BUYER.name(),UserRoleEnum.ROLE_ADMIN.name(),UserRoleEnum.ROLE_SUPERADMIN.name())
+                .antMatchers("/API**").hasAnyRole(UserRoleEnum.ROLE_BUYER.name(), UserRoleEnum.ROLE_CONTR_AGENT.name(),
+                UserRoleEnum.ROLE_MEDIATIOR.name(), UserRoleEnum.ROLE_TARGET_BUYER.name(), UserRoleEnum.ROLE_ADMIN.name(), UserRoleEnum.ROLE_SUPERADMIN.name())
                 //private
-                .antMatchers("/admin**").hasAnyRole(UserRoleEnum.ROLE_ADMIN.name(),UserRoleEnum.ROLE_SUPERADMIN.name())
+                .antMatchers("/admin**").hasAnyRole(UserRoleEnum.ROLE_ADMIN.name(), UserRoleEnum.ROLE_SUPERADMIN.name())
                 //and super private
-                .antMatchers("/super_admin**").hasAnyRole(UserRoleEnum.ROLE_SUPERADMIN.name())
-        ;
+                .antMatchers("/super_admin**").hasAnyRole(UserRoleEnum.ROLE_SUPERADMIN.name());
+
         http.exceptionHandling().accessDeniedPage("/error");
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.formLogin().successHandler(authenticationSuccessHandler);
         http.formLogin().failureHandler(authenticationFailureHandler);
         http.logout().logoutSuccessUrl("/");
 
-        http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
     }
 }

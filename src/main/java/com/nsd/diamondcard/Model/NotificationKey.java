@@ -35,6 +35,8 @@ public class NotificationKey {
         this.userId = userId;
     }
 
+
+
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -43,4 +45,8 @@ public class NotificationKey {
 
     @DatabaseField
     private long userId;
+
+    @DatabaseField
+    private String userDeviceType;
+
 }

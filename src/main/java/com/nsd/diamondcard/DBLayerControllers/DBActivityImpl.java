@@ -19,19 +19,21 @@ public class DBActivityImpl implements DBActivity {
     @Autowired
     private Logger logger;
 
-    public DBActivityImpl(){
-      try {
-            dao = DaoManager.createDao(DBConnectionFactory.getSource(),Activity.class);
-            if(!dao.isTableExists()){
-                TableUtils.createTable(dao.getConnectionSource(),Activity.class);
+    public DBActivityImpl() {
+        try {
+            dao = DaoManager.createDao(DBConnectionFactory.getSource(), Activity.class);
+            if (!dao.isTableExists()) {
+                TableUtils.createTable(dao.getConnectionSource(), Activity.class);
             }
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private Dao<Activity,Long> dao;
+    private Dao<Activity, Long> dao;
 
     @Override
-    public void validateActivity(Activity activity){
+    public void validateActivity(Activity activity) {
 
     }
 
@@ -39,25 +41,25 @@ public class DBActivityImpl implements DBActivity {
     public void createActivity(Activity activity) {
         try {
             dao.create(activity);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log("DBActivityImpl -> createActivity -> " + e.getMessage());
         }
     }
 
     @Override
     public void updateActivity(Activity activity) {
-        try{
+        try {
             dao.update(activity);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log("DBActivityImpl -> updateActivity -> " + e.getMessage());
         }
     }
 
     @Override
     public void removeActivity(Activity activity) {
-        try{
+        try {
             dao.delete(activity);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log("DBActivityImpl -> removeActivity -> " + e.getMessage());
         }
     }
@@ -65,9 +67,9 @@ public class DBActivityImpl implements DBActivity {
     @Override
     public Activity getActivity(long id) {
         Activity resultValue = null;
-        try{
+        try {
             resultValue = dao.queryForId(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log("DBActivityImpl -> getActivity -> " + e.getMessage());
         }
         return resultValue;
@@ -75,10 +77,10 @@ public class DBActivityImpl implements DBActivity {
 
     @Override
     public List<Activity> getAllActivitys() {
-        List <Activity> resultList = null;
+        List<Activity> resultList = null;
         try {
             resultList = dao.queryForAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log("DBActivityImpl -> getActivity -> " + e.getMessage());
         }
         return resultList;

@@ -25,10 +25,35 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 20 * * *")
     public void acceptCashbaks() {
 
+        for (Activity activity : activityService.getAllActivitys()) {
+            processingActivity(activity);
+        }
+    }
+
+    private void processingActivity(Activity activity) {
+
+        if (!activity.isActiveOperation()) {
+            return;
+        }
+
+        if (!activity.isActiveOperation() && activity.isSuccessComplete()) {
+            return;
+        }
+        long timestamp = System.currentTimeMillis();
+        if (activity.isActiveOperation() && !activity.isSuccessComplete()) {
+            if ((activity.getDate() + activity.getDateOffset()) >= timestamp) {
+                acceptActivity(activity);
+            }
+        }
+    }
+
+    private void acceptActivity(Activity activity) {
+        activity.setSuccessComplete(true);
+        activity.setActiveOperation(false);
 
 
 
 
-
+        activityService.updateActivity(activity);
     }
 }
