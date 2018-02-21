@@ -11,6 +11,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -37,7 +38,7 @@ public class Register {
             if (userService.getUser(email) != null) {
                 JSONRequest request = new JSONRequest();
                 request.setStatus("USER_IS_EXIST");
-                request.setData(new ArrayList());
+                request.setData(new HashMap());
                 return new Gson().toJson(request);
             }
 
@@ -67,12 +68,12 @@ public class Register {
 
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
-            request.setData(new ArrayList());
+            request.setData(new HashMap());
             return new Gson().toJson(request);
         } catch (Exception e) {
             JSONRequest request = new JSONRequest();
             request.setStatus("BAD");
-            request.setData(new ArrayList());
+            request.setData(new HashMap());
             return new Gson().toJson(request);
 
         }

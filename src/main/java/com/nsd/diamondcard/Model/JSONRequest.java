@@ -1,13 +1,14 @@
 package com.nsd.diamondcard.Model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by nsd on 08.10.17.
  */
 public class JSONRequest {
     private String status;
-    private ArrayList data;
+    private Map data;
 
     public String getStatus() {
         return status;
@@ -17,11 +18,11 @@ public class JSONRequest {
         this.status = status;
     }
 
-    public ArrayList getData() {
+    public Map getData() {
         return data;
     }
 
-    public void setData(ArrayList data) {
+    public void setData(Map data) {
         this.data = data;
     }
 }

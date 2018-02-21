@@ -54,7 +54,7 @@ public class ResponceAuth {
         if(UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority()) == ROLE_NONE){
             Gson gson = new Gson();
             JSONRequest request = new JSONRequest();
-            request.setData(new ArrayList());
+            request.setData(new HashMap());
             request.setStatus("BAD");
             return gson.toJson(request);
         }
@@ -70,7 +70,7 @@ public class ResponceAuth {
         System.out.println("Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name());
 
         JSONRequest request = new JSONRequest();
-        request.setData(new ArrayList());
+        request.setData(new HashMap());
 
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
@@ -82,15 +82,16 @@ public class ResponceAuth {
                 request.setStatus("OK");
                 tUser.setPasswd("");
                 tUser.setBillingCardNum("");
-                request.getData().add(tUser);
-                request.getData().add(currentRole.name());
+                request.getData().put("user",tUser);
+                request.getData().put("role",currentRole.name());
         }
 
         if (currentRole == ROLE_BUYER) {
-            request.getData().add(userBuyerService.getBuyerWithForeign(tUser.getUserID()));
+            request.getData().put("fullInfo",userBuyerService.getBuyerWithForeign(tUser.getUserID()));
         }
         if (currentRole == ROLE_CONTR_AGENT) {
-            request.getData().add(contrAgentService.getContrAgentWithForeign(tUser.getUserID()));
+            request.getData().put("fullInfo",contrAgentService.getContrAgentWithForeign(tUser.getUserID()));
+
         }
         return gson.toJson(request);
     }

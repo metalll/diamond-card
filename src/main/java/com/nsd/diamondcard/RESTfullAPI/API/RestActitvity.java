@@ -29,10 +29,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.List;
+import java.util.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
@@ -154,11 +151,11 @@ public class RestActitvity {
 
             JSONRequest request1 = new JSONRequest();
             request1.setStatus("OK");
-            request1.setData(new ArrayList());
+            request1.setData(new HashMap());
             return gson.toJson(request1);
         } else {
             JSONRequest jsonReq = new JSONRequest();
-            jsonReq.setData(new ArrayList());
+            jsonReq.setData(new HashMap());
             jsonReq.setStatus("BAD");
             return gson.toJson(jsonReq);
         }
@@ -275,12 +272,12 @@ public class RestActitvity {
 
             JSONRequest request = new JSONRequest();
             request.setStatus("OK");
-            request.setData(new ArrayList());
+            request.setData(new HashMap());
             return gson.toJson(request);
         }catch (Exception e) {
             Gson gson = new Gson();
             JSONRequest jsonReq = new JSONRequest();
-            jsonReq.setData(new ArrayList());
+            jsonReq.setData(new HashMap());
             jsonReq.setStatus("BAD");
             return gson.toJson(jsonReq);
 
@@ -297,7 +294,7 @@ public class RestActitvity {
         Gson gson = new Gson();
         JSONRequest request = new JSONRequest();
         request.setStatus("OK");
-        request.setData(new ArrayList());
+        request.setData(new HashMap());
         List<Activity>requestList = activityService.getAllActivitys();
         if (requestList!=null) {
             List<Activity>filteredList = new ArrayList<>();
@@ -312,7 +309,7 @@ public class RestActitvity {
                 }
             }
             //noinspection unchecked
-            request.getData().add(filteredList);
+            request.getData().put("activites",filteredList);
         }
 
         return gson.toJson(request);

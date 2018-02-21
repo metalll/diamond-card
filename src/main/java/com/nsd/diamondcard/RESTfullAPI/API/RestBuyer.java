@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 
 import static com.nsd.diamondcard.Model.UserRoleEnum.ROLE_NONE;
 
@@ -44,7 +46,7 @@ public class RestBuyer {
         if(UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority()) == ROLE_NONE){
             Gson gson = new Gson();
             JSONRequest request = new JSONRequest();
-            request.setData(new ArrayList());
+            request.setData(new HashMap());
             request.setStatus("BAD");
             return gson.toJson(request);
         }
@@ -60,7 +62,7 @@ public class RestBuyer {
         System.out.println(Constants.CONSOLE_ANSI_YELLOW + "Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name() + Constants.CONSOLE_ANSI_RESET );
 
         JSONRequest request = new JSONRequest();
-        request.setData(new ArrayList());
+        request.setData(new HashMap());
 
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
@@ -71,8 +73,8 @@ public class RestBuyer {
                 request.setStatus("OK");
                 tUser.setPasswd("");
                 tUser.setBillingCardNum("");
-                request.getData().add(tUser);
-                request.getData().add(currentRole.name());
+                request.getData().put("userData",tUser);
+                request.getData().put("role",currentRole.name());
         }
         return "";
     }
