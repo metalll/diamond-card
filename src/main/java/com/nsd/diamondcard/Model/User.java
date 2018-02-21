@@ -28,6 +28,8 @@ public class User {
     @DatabaseField(columnName = COLUMN_EMAIL, unique = true)
     private String email;
 
+    @DatabaseField
+    private String avatar;
 
     @DatabaseField(columnName = COLUMN_PASSWD)
     private String passwd;
@@ -78,4 +80,11 @@ public class User {
         this.cashbackCardNumber = cashbackCardNumber;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }
