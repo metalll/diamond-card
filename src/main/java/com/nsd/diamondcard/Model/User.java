@@ -14,7 +14,6 @@ public class User {
     // column constant declaration
 
     public static final String COLUMN_EMAIL = "EMAIL";
-
     private static final String COLUMN_ID = "USER_ID";
     private static final String COLUMN_PASSWD = "PASSWD";
     private static final String COLUMN_BILLING_CARD_NUM = "BILLING_CARD";
@@ -27,7 +26,7 @@ public class User {
     @DatabaseField(columnName = COLUMN_EMAIL, unique = true)
     private String email;
 
-    @DatabaseField
+    @DatabaseField(columnName = COLUMN_AVATAR)
     private String avatar;
 
     @DatabaseField(columnName = COLUMN_PASSWD)
