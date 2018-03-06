@@ -32,8 +32,8 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
     @Override
     public void createNotificationKey(NotificationKey NotificationKey) {
         try {
-           dao.create(NotificationKey);
-           dao.getConnectionSource().close();
+           dao.createOrUpdate(NotificationKey);
+
         } catch (Exception e) {
             System.out.println("Notifaction DB error create -> stack ->::" + e.getLocalizedMessage());
         }
@@ -50,12 +50,12 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
         }
     }
 
-    public NotificationKey getNoficationKeyWithUserId(long userId) {
-        NotificationKey retVal = null;
+    public List<NotificationKey> getNoficationKeysWithUserId(long userId) {
+        List<NotificationKey> retVal = null;
         try {
             List<NotificationKey> retList = dao.queryForEq("userId",Long.parseLong(String.valueOf(userId)));
             if (retList.size() > 0) {
-                retVal = retList.get(0);
+                retVal = retList;
             }
         } catch (Exception e) {
             System.out.println("Notifaction DB error get -> stack ->::" + e.getLocalizedMessage());

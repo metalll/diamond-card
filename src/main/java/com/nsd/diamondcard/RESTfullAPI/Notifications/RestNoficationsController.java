@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.*;
+import java.io.StringReader;
 
 /**
  * Created by nsd on 07.12.17.
@@ -29,7 +30,7 @@ public class RestNoficationsController {
     DBUser userService;
 
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST)
-    public String subscribe(@RequestParam("key")String key) {
+    public String subscribe(@RequestParam("key")String key, @RequestParam("device")String userDeviceType, @RequestParam("development")String development) {
         try {
             if (key == null && key.equals("")) {
                 return "BAD";
@@ -47,21 +48,28 @@ public class RestNoficationsController {
 
         long userId = userService.getUser(userName).getUserID();
 
-        NotificationKey keyN = keysManager.getNoficationKeyWithUserId(userId);
+        NotificationKey keyN = null;
 
-        if (keyN != null) {
+        for (NotificationKey tempKey : keysManager.getNoficationKeysWithUserId(userId)) {
 
-            keyN.setKey(key);
-            keysManager.updateNotificationKey(keyN);
-            return "OK";
-        } else {
+            if (tempKey.getKey().equals(key)) {
+                keyN = tempKey;
+                break;
+            }
 
-            keyN = new NotificationKey();
-            keyN.setUserId(userId);
-            keyN.setKey(key);
-            keysManager.createNotificationKey(keyN);
-            return "OK";
         }
+
+
+        if (keyN == null) {
+            keyN = new NotificationKey();
+        }
+
+        keyN.setUserId(userId);
+        keyN.setKey(key);
+        keyN.setDevelopment(development);
+        keyN.setUserDeviceType(userDeviceType);
+        keysManager.createNotificationKey(keyN);
+        return "OK";
     }
 
     @RequestMapping(value = "/unsubscribe",method = RequestMethod.POST)
@@ -70,11 +78,17 @@ public class RestNoficationsController {
         String userName = currentAuth.getName();
         long userId = userService.getUser(userName).getUserID();
         try {
-            NotificationKey keyN = keysManager.getNoficationKeyWithUserId(userId);
-            keysManager.removeNotificationKey(keyN);
+
+
+
         } catch (Exception e) {
 
         }
+
+
+
+
+
         return "OK";
     }
 
