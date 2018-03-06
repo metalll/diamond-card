@@ -196,77 +196,77 @@ public class RestActitvity {
             userBuyerService.updateBuyer(targetBuyer);
 
 
-
-            String targetUserToken = notifationsKeysService.getNoficationKeyWithUserId(targetUserId).getKey();
-
-            if (targetUserToken != null) {
-                ClassLoader classLoader = getClass().getClassLoader();
-                try {
-                    final ApnsClient apnsClient = new ApnsClientBuilder()
-                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("api.development.push.apple.com",443).build();
-
-
-
-                    final SimpleApnsPushNotification pushNotification;
-
-
-                        final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
-                        payloadBuilder.setAlertBody("hi!");
-
-                        final String payload = payloadBuilder.buildWithDefaultMaximumLength();
-                        final String token = TokenUtil.sanitizeTokenString(targetUserToken);
-                        System.out.println(token);
-
-                        pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
-
-                    final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
-                            apnsClient.sendNotification(pushNotification);
-
-                    try {
-                        final PushNotificationResponse<SimpleApnsPushNotification> pushNotificationResponse =
-                                sendNotificationFuture.get();
-
-                        if (pushNotificationResponse.isAccepted()) {
-                            System.out.println("Push notification accepted by APNs gateway.");
-                        } else {
-                            System.out.println("Notification rejected by the APNs gateway: " +
-                                    pushNotificationResponse.getRejectionReason());
-
-                            if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
-                                System.out.println("\t…and the token is invalid as of " +
-                                        pushNotificationResponse.getTokenInvalidationTimestamp());
-                            }
-                        }
-                    } catch (final ExecutionException e) {
-                        System.err.println("Failed to send push notification.");
-                        e.printStackTrace();
-                    }
-
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-
-                    File f = new File("."); // current directory
-
-                    File[] files = f.listFiles();
-                    for (File file : files) {
-                        if (file.isDirectory()) {
-                            System.out.print("directory:");
-                        } else {
-                            System.out.print("     file:");
-                        }
-                        System.out.println(file.getCanonicalPath());
-                    }
-
-
-                }
-
-
-
-
-            }
+//
+//            String targetUserToken = notifationsKeysService.getNoficationKeyWithUserId(targetUserId).getKey();
+//
+//            if (targetUserToken != null) {
+//                ClassLoader classLoader = getClass().getClassLoader();
+//                try {
+//                    final ApnsClient apnsClient = new ApnsClientBuilder()
+//                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("api.development.push.apple.com",443).build();
+//
+//
+//
+//                    final SimpleApnsPushNotification pushNotification;
+//
+//
+//                        final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+//                        payloadBuilder.setAlertBody("hi!");
+//
+//                        final String payload = payloadBuilder.buildWithDefaultMaximumLength();
+//                        final String token = TokenUtil.sanitizeTokenString(targetUserToken);
+//                        System.out.println(token);
+//
+//                        pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
+//
+//                    final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
+//                            apnsClient.sendNotification(pushNotification);
+//
+//                    try {
+//                        final PushNotificationResponse<SimpleApnsPushNotification> pushNotificationResponse =
+//                                sendNotificationFuture.get();
+//
+//                        if (pushNotificationResponse.isAccepted()) {
+//                            System.out.println("Push notification accepted by APNs gateway.");
+//                        } else {
+//                            System.out.println("Notification rejected by the APNs gateway: " +
+//                                    pushNotificationResponse.getRejectionReason());
+//
+//                            if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
+//                                System.out.println("\t…and the token is invalid as of " +
+//                                        pushNotificationResponse.getTokenInvalidationTimestamp());
+//                            }
+//                        }
+//                    } catch (final ExecutionException e) {
+//                        System.err.println("Failed to send push notification.");
+//                        e.printStackTrace();
+//                    }
+//
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//
+//
+//                    File f = new File("."); // current directory
+//
+//                    File[] files = f.listFiles();
+//                    for (File file : files) {
+//                        if (file.isDirectory()) {
+//                            System.out.print("directory:");
+//                        } else {
+//                            System.out.print("     file:");
+//                        }
+//                        System.out.println(file.getCanonicalPath());
+//                    }
+//
+//
+//                }
+//
+//
+//
+//
+//            }
 
 
 
