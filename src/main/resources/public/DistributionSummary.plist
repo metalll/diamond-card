@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diamond Club.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>58E37D4452F25344868F2F63B7BF2B37C47DCEB0</string>
+				<key>dateExpires</key>
+				<string>3/7/19</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>58E37D4452F25344868F2F63B7BF2B37C47DCEB0</string>
+						<key>dateExpires</key>
+						<string>3/7/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>Alamofire.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>328Q23T368</string>
+						<key>name</key>
+						<string>NSD NULL</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>58E37D4452F25344868F2F63B7BF2B37C47DCEB0</string>
+						<key>dateExpires</key>
+						<string>3/7/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>EFQRCode.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>328Q23T368</string>
+						<key>name</key>
+						<string>NSD NULL</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>58E37D4452F25344868F2F63B7BF2B37C47DCEB0</string>
+						<key>dateExpires</key>
+						<string>3/7/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>EZLoadingActivity.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>328Q23T368</string>
+						<key>name</key>
+						<string>NSD NULL</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>58E37D4452F25344868F2F63B7BF2B37C47DCEB0</string>
+						<key>dateExpires</key>
+						<string>3/7/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>SlideMenuControllerSwift.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>328Q23T368</string>
+						<key>name</key>
+						<string>NSD NULL</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>328Q23T368.com.nsd.Diamond-Club</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>328Q23T368</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>328Q23T368.com.nsd.Diamond-Club</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>Diamond Club.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>aa3ca234-4011-4753-9488-15244382d1f6</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>328Q23T368</string>
+				<key>name</key>
+				<string>NSD NULL</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
