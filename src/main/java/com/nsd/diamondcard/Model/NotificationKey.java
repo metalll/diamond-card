@@ -39,6 +39,9 @@ public class NotificationKey {
     private long id;
 
     @DatabaseField
+    private String langCode;
+
+    @DatabaseField
     private String key;
 
     @DatabaseField
@@ -64,5 +67,13 @@ public class NotificationKey {
 
     public void setUserDeviceType(String userDeviceType) {
         this.userDeviceType = userDeviceType;
+    }
+
+    public String getLangCode() {
+        return langCode;
+    }
+
+    public void setLangCode(String langCode) {
+        this.langCode = langCode;
     }
 }

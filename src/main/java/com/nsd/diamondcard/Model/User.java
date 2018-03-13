@@ -26,6 +26,12 @@ public class User {
     @DatabaseField(columnName = COLUMN_EMAIL, unique = true)
     private String email;
 
+    @DatabaseField
+    private String firstName;
+
+    @DatabaseField
+    private String secondName;
+
     @DatabaseField(columnName = COLUMN_AVATAR)
     private String avatar;
 
@@ -83,5 +89,21 @@ public class User {
     }
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }

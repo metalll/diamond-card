@@ -79,15 +79,9 @@ public class RestNoficationsController {
         long userId = userService.getUser(userName).getUserID();
         try {
 
-
-
         } catch (Exception e) {
 
         }
-
-
-
-
 
         return "OK";
     }
