@@ -2,11 +2,8 @@ package com.nsd.diamondcard.RESTfullAPI.API;
 
 import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.*;
+import com.nsd.diamondcard.Model.*;
 import com.nsd.diamondcard.Model.Activity.Activity;
-import com.nsd.diamondcard.Model.Buyer;
-import com.nsd.diamondcard.Model.ContrAgent;
-import com.nsd.diamondcard.Model.JSONRequest;
-import com.nsd.diamondcard.Model.User;
 import com.turo.pushy.apns.ApnsClient;
 import com.turo.pushy.apns.ApnsClientBuilder;
 import com.turo.pushy.apns.PushNotificationResponse;
@@ -40,7 +37,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 class RequestStruct {
-    public RequestStruct(){}
+    public RequestStruct() {
+    }
 
     private String email;
     private String passwordHash;
@@ -105,27 +103,26 @@ public class RestActitvity {
     // 1-C cashback request
     // header X-AUTH = ReqBody data hash with hmacSha1 (RFC2104HMAC)
 
-    @RequestMapping(value = "/pushcare",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public String add(@RequestBody String reqBody,@RequestHeader(value = "X-AUTH") String hash) {
+    @RequestMapping(value = "/pushcare", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String add(@RequestBody String reqBody, @RequestHeader(value = "X-AUTH") String hash) {
 
         boolean isValidReq = true;
 
         String calulatedHash = null;
         try {
-            calulatedHash = calculateRFC2104HMAC(reqBody,"XCV-2345-ER-VXC-OxB-212");
+            calulatedHash = calculateRFC2104HMAC(reqBody, "XCV-2345-ER-VXC-OxB-212");
 
             if (!hash.equals(calulatedHash)) {
-             isValidReq = false;
+                isValidReq = false;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             isValidReq = false;
         }
 
 
-
         Gson gson = new Gson();
 
-        RequestStruct request = gson.fromJson(reqBody,RequestStruct.class);
+        RequestStruct request = gson.fromJson(reqBody, RequestStruct.class);
 
         User contrAgent = userService.getUser(request.getEmail());
         if (contrAgent != null) {
@@ -134,39 +131,33 @@ public class RestActitvity {
 
         User targetUser = userService.getUserWithCard(request.getUserCashbackCard());
 
-        if (isValidReq && (targetUser != null) && (contrAgent !=null) && (request.getUserCashbackValue()!= null)) {
+        if (isValidReq && (targetUser != null) && (contrAgent != null) && (request.getUserCashbackValue() != null)) {
             Activity activity = new Activity();
             activity.setInitiatorId(contrAgent.getUserID());
             activity.setTargetId(targetUser.getUserID());
             activity.setOperationValue(request.getUserCashbackValue());
             activity.setType("CASHB");
-         //   activity.setData(dateFormat.format(new Date()));
-        //    activity.setEndData("14");
+            //   activity.setData(dateFormat.format(new Date()));
+            //    activity.setEndData("14");
             activity.setActiveOperation(true);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
 
 
-
-
-            JSONRequest request1 = new JSONRequest();
-            request1.setStatus("OK");
-            request1.setData(new HashMap());
-            return gson.toJson(request1);
+            JSONResponce jsonResponce = new JSONResponce(true, null);
+            return gson.toJson(jsonResponce);
         } else {
-            JSONRequest jsonReq = new JSONRequest();
-            jsonReq.setData(new HashMap());
-            jsonReq.setStatus("BAD");
-            return gson.toJson(jsonReq);
+            JSONResponce jsonResponce = new JSONResponce(false, null);
+
+            return gson.toJson(jsonResponce);
         }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CONTR_AGENT')")
     @RequestMapping(value = "/activity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String add(@RequestParam("userCashCard") String userCashCard,@RequestParam("type") String type,@RequestParam ("value") String value) {
+    public String add(@RequestParam("userCashCard") String userCashCard, @RequestParam("type") String type, @RequestParam("value") String value) {
+        Gson gson = new Gson();
         try {
-            Gson gson = new Gson();
-
 
 
             Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
@@ -269,18 +260,11 @@ public class RestActitvity {
 //            }
 
 
-
-            JSONRequest request = new JSONRequest();
-            request.setStatus("OK");
-            request.setData(new HashMap());
-            return gson.toJson(request);
-        }catch (Exception e) {
-            Gson gson = new Gson();
-            JSONRequest jsonReq = new JSONRequest();
-            jsonReq.setData(new HashMap());
-            jsonReq.setStatus("BAD");
-            return gson.toJson(jsonReq);
-
+            JSONResponce jsonResponce = new JSONResponce(true, null);
+            return gson.toJson(jsonResponce);
+        } catch (Exception e) {
+            JSONResponce jsonResponce = new JSONResponce(false, null);
+            return gson.toJson(jsonResponce);
         }
 
     }
@@ -295,13 +279,13 @@ public class RestActitvity {
         JSONRequest request = new JSONRequest();
         request.setStatus("OK");
         request.setData(new HashMap());
-        List<Activity>requestList = activityService.getAllActivitys();
-        if (requestList!=null) {
-            List<Activity>filteredList = new ArrayList<>();
+        List<Activity> requestList = activityService.getAllActivitys();
+        if (requestList != null) {
+            List<Activity> filteredList = new ArrayList<>();
 
             for (Activity item : requestList) {
                 if (item.isActiveOperation() &&
-                        ((item.getTargetId()==currentUser.getUserID())
+                        ((item.getTargetId() == currentUser.getUserID())
                                 || (item.getInitiatorId() == currentUser.getUserID()))) {
 
                     filteredList.add(item);
@@ -309,12 +293,20 @@ public class RestActitvity {
                 }
             }
             //noinspection unchecked
-            request.getData().put("activites",filteredList);
+            request.getData().put("activites", filteredList);
         }
 
         return gson.toJson(request);
     }
 
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/activity/accept", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String acceptCashBack(@RequestParam String cashbackId, @RequestParam String acceptCode) {
+
+
+        return "";
+    }
 
 
     @RequestMapping(value = "/update/activity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -323,7 +315,7 @@ public class RestActitvity {
         return "";
     }
 
-/*-------------------------------Hash calculator --------------------------------------*/
+    /*-------------------------------Hash calculator --------------------------------------*/
 
     private static String toHexString(byte[] bytes) {
         Formatter formatter = new Formatter();
@@ -334,7 +326,7 @@ public class RestActitvity {
     }
 
     public static String calculateRFC2104HMAC(String data, String key)
-            throws SignatureException, NoSuchAlgorithmException,InvalidKeyException {
+            throws SignatureException, NoSuchAlgorithmException, InvalidKeyException {
         SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), HMAC_SHA1_ALGORITHM);
         Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
         mac.init(signingKey);

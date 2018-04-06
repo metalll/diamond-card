@@ -30,7 +30,7 @@ public class RestNoficationsController {
     DBUser userService;
 
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST)
-    public String subscribe(@RequestParam("key")String key, @RequestParam("device")String userDeviceType, @RequestParam("development")String development) {
+    public String subscribe(@RequestParam("key")String key, @RequestParam("device")String userDeviceType, @RequestParam("development")String development,@RequestParam("deviceUUID")String deviceUUIUD) {
         try {
             if (key == null && key.equals("")) {
                 return "BAD";
