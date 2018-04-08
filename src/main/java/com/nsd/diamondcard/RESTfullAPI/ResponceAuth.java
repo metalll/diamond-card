@@ -6,6 +6,7 @@ import com.nsd.diamondcard.DBLayerControllers.DBContrAgent;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
 import com.nsd.diamondcard.DBLayerControllers.DBUserImpl;
 import com.nsd.diamondcard.Model.JSONRequest;
+import com.nsd.diamondcard.Model.JSONResponce;
 import com.nsd.diamondcard.Model.UserRoleEnum;
 import com.nsd.diamondcard.Utils.Constants;
 import com.nsd.diamondcard.Utils.UserRoleCoverter;
@@ -72,27 +73,39 @@ public class ResponceAuth {
         JSONRequest request = new JSONRequest();
         request.setData(new HashMap());
 
+
+        HashMap<String,Object> hashMap = new HashMap<>();
+
+
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
 
             case ROLE_NONE:
-                request.setStatus("BAD");
-                break;
+                JSONResponce jsonResponce = new JSONResponce(false,null);
+                return gson.toJson(jsonResponce);
+
+
             default:
-                request.setStatus("OK");
+
                 tUser.setPasswd("");
                 tUser.setBillingCardNum("");
-                request.getData().put("user",tUser);
-                request.getData().put("role",currentRole.name());
+                hashMap.put("user",tUser);
+                hashMap.put("role",currentRole.name());
+
+
         }
 
         if (currentRole == ROLE_BUYER) {
-            request.getData().put("fullInfo",userBuyerService.getBuyerWithForeign(tUser.getUserID()));
+            hashMap.put("fullInfo",userBuyerService.getBuyerWithForeign(tUser.getUserID()));
+            JSONResponce jsonResponce1 = new JSONResponce(true,hashMap);
+            return gson.toJson(jsonResponce1);
         }
         if (currentRole == ROLE_CONTR_AGENT) {
-            request.getData().put("fullInfo",contrAgentService.getContrAgentWithForeign(tUser.getUserID()));
-
+            hashMap.put("fullInfo",contrAgentService.getContrAgentWithForeign(tUser.getUserID()));
+            JSONResponce jsonResponce1 = new JSONResponce(true,hashMap);
+            return gson.toJson(jsonResponce1);
         }
-        return gson.toJson(request);
+        JSONResponce jsonResponce1 = new JSONResponce(true,hashMap);
+        return gson.toJson(jsonResponce1);
     }
 }
