@@ -3,13 +3,15 @@ package com.nsd.diamondcard.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import javax.annotation.security.DenyAll;
+
 /**
  * Created by nsd on 07.12.17.
  */
 @DatabaseTable
-public class NotificationKey {
+public class NotificationEntity {
 
-    public NotificationKey(){}
+    public NotificationEntity(){}
 
     public long getId() {
         return id;
@@ -53,6 +55,9 @@ public class NotificationKey {
     @DatabaseField
     private String development;
 
+    @DatabaseField
+    private String userDeviceId;
+
     public String getDevelopment() {
         return development;
     }
@@ -75,5 +80,13 @@ public class NotificationKey {
 
     public void setLangCode(String langCode) {
         this.langCode = langCode;
+    }
+
+    public String getUserDeviceId() {
+        return userDeviceId;
+    }
+
+    public void setUserDeviceId(String userDeviceId) {
+        this.userDeviceId = userDeviceId;
     }
 }

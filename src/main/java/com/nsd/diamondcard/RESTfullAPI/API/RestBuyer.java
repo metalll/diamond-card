@@ -6,6 +6,7 @@ import com.nsd.diamondcard.DBLayerControllers.DBBuyer;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
 import com.nsd.diamondcard.Model.Buyer;
 import com.nsd.diamondcard.Model.JSONRequest;
+import com.nsd.diamondcard.Model.JSONResponce;
 import com.nsd.diamondcard.Model.UserRoleEnum;
 import com.nsd.diamondcard.Utils.Constants;
 import com.nsd.diamondcard.Utils.UserRoleCoverter;
@@ -45,10 +46,8 @@ public class RestBuyer {
 
         if(UserRoleCoverter.convert(((GrantedAuthority) currentAuth.getAuthorities().toArray()[0]).getAuthority()) == ROLE_NONE){
             Gson gson = new Gson();
-            JSONRequest request = new JSONRequest();
-            request.setData(new HashMap());
-            request.setStatus("BAD");
-            return gson.toJson(request);
+            JSONResponce jsonResponce = new JSONResponce(false,null);
+            return gson.toJson(jsonResponce);
         }
 
         Gson gson = new Gson();
@@ -64,19 +63,29 @@ public class RestBuyer {
         JSONRequest request = new JSONRequest();
         request.setData(new HashMap());
 
+        HashMap<String,Object> hashMap = new HashMap<>();
+
+
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
             case ROLE_NONE:
-                request.setStatus("BAD");
-                break;
+
+                JSONResponce jsonResponce = new JSONResponce(false,null);
+                return gson.toJson(jsonResponce);
+
             default:
-                request.setStatus("OK");
+
                 tUser.setPasswd("");
                 tUser.setBillingCardNum("");
-                request.getData().put("userData",tUser);
-                request.getData().put("role",currentRole.name());
+
+                hashMap.put("userData",tUser);
+                hashMap.put("role",currentRole.name());
+
+                JSONResponce jsonResponce1 = new JSONResponce(true,null);
+                return gson.toJson(jsonResponce1);
+
         }
-        return "";
+        //return "";
     }
 
 }

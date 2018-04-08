@@ -2,13 +2,10 @@ package com.nsd.diamondcard.DBLayerControllers;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.nsd.diamondcard.Model.Mediator;
-import com.nsd.diamondcard.Model.NotificationKey;
+import com.nsd.diamondcard.Model.NotificationEntity;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -17,22 +14,22 @@ import java.util.List;
 @Service
 public class DBNotificationsKeysImpl implements DBNotifationsKeys {
 
-    private Dao<NotificationKey,Long> dao;
+    private Dao<NotificationEntity,Long> dao;
 
     public DBNotificationsKeysImpl() {
         try {
-            dao = DaoManager.createDao(DBConnectionFactory.getSource(), NotificationKey.class);
+            dao = DaoManager.createDao(DBConnectionFactory.getSource(), NotificationEntity.class);
             if(!dao.isTableExists()){
-                TableUtils.createTable(dao.getConnectionSource(),NotificationKey.class);
+                TableUtils.createTable(dao.getConnectionSource(),NotificationEntity.class);
                 dao.getConnectionSource().close();
             }
         } catch (Exception e){e.printStackTrace();}
     }
 
     @Override
-    public void createNotificationKey(NotificationKey NotificationKey) {
+    public void createNotificationKey(NotificationEntity NotificationEntity) {
         try {
-           dao.createOrUpdate(NotificationKey);
+           dao.createOrUpdate(NotificationEntity);
 
         } catch (Exception e) {
             System.out.println("Notifaction DB error create -> stack ->::" + e.getLocalizedMessage());
@@ -40,9 +37,9 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
     }
 
     @Override
-    public void updateNotificationKey(NotificationKey NotificationKey) {
+    public void updateNotificationKey(NotificationEntity NotificationEntity) {
         try {
-            dao.update(NotificationKey);
+            dao.update(NotificationEntity);
             dao.getConnectionSource().close();
         } catch (Exception e) {
             System.out.println("Notifaction DB error update -> stack ->::" + e.getLocalizedMessage());
@@ -50,10 +47,10 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
         }
     }
 
-    public List<NotificationKey> getNoficationKeysWithUserId(long userId) {
-        List<NotificationKey> retVal = null;
+    public List<NotificationEntity> getNoficationKeysWithUserId(long userId) {
+        List<NotificationEntity> retVal = null;
         try {
-            List<NotificationKey> retList = dao.queryForEq("userId",Long.parseLong(String.valueOf(userId)));
+            List<NotificationEntity> retList = dao.queryForEq("userId",Long.parseLong(String.valueOf(userId)));
             if (retList.size() > 0) {
                 retVal = retList;
             }
@@ -64,9 +61,9 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
     }
 
     @Override
-    public void removeNotificationKey(NotificationKey NotificationKey) {
+    public void removeNotificationKey(NotificationEntity NotificationEntity) {
         try {
-            dao.delete(NotificationKey);
+            dao.delete(NotificationEntity);
             dao.getConnectionSource().close();
         } catch (Exception e) {
             System.out.println("Notifaction DB error get -> stack ->::" + e.getLocalizedMessage());

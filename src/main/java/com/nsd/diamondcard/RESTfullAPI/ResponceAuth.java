@@ -67,7 +67,7 @@ public class ResponceAuth {
 
         String currUserName = user.getUsername();
 
-        System.out.println("Current auth role: "  + Constants.CONSOLE_ANSI_PURPLE + currentRole.name());
+
 
         JSONRequest request = new JSONRequest();
         request.setData(new HashMap());

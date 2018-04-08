@@ -36,10 +36,9 @@ public class Register {
         try {
 
             if (userService.getUser(email) != null) {
-                JSONRequest request = new JSONRequest();
-                request.setStatus("USER_IS_EXIST");
-                request.setData(new HashMap());
-                return new Gson().toJson(request);
+                Gson gson = new Gson();
+                JSONResponce jsonResponce = new JSONResponce(false,null);
+                return gson.toJson(jsonResponce);
             }
 
             String uuid = UUID.randomUUID().toString().replace("-", "");
@@ -66,15 +65,13 @@ public class Register {
 
             userRole.createRole(role);
 
-            JSONRequest request = new JSONRequest();
-            request.setStatus("OK");
-            request.setData(new HashMap());
-            return new Gson().toJson(request);
+            Gson gson = new Gson();
+            JSONResponce jsonResponce = new JSONResponce(true,null);
+            return gson.toJson(jsonResponce);
         } catch (Exception e) {
-            JSONRequest request = new JSONRequest();
-            request.setStatus("BAD");
-            request.setData(new HashMap());
-            return new Gson().toJson(request);
+            Gson gson = new Gson();
+            JSONResponce jsonResponce = new JSONResponce(false,null);
+            return gson.toJson(jsonResponce);
 
         }
     }
@@ -86,11 +83,10 @@ public class Register {
     }
 
     public static String byteArrayToHexString(byte[] b) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < b.length; i++) {
-            result +=
-                    Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
+            result.append(Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1));
         }
-        return result;
+        return result.toString();
     }
 }

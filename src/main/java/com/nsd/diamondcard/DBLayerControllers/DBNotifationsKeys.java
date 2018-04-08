@@ -1,6 +1,6 @@
 package com.nsd.diamondcard.DBLayerControllers;
 
-import com.nsd.diamondcard.Model.NotificationKey;
+import com.nsd.diamondcard.Model.NotificationEntity;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import java.util.List;
  * Created by nsd on 07.12.17.
  */
 public interface DBNotifationsKeys {
-    void createNotificationKey(NotificationKey NotificationKey);
-    void updateNotificationKey(NotificationKey NotificationKey);
-    void removeNotificationKey(NotificationKey NotificationKey);
-    List<NotificationKey> getNoficationKeysWithUserId(long userId);
+    void createNotificationKey(NotificationEntity NotificationEntity);
+    void updateNotificationKey(NotificationEntity NotificationEntity);
+    void removeNotificationKey(NotificationEntity NotificationEntity);
+    List<NotificationEntity> getNoficationKeysWithUserId(long userId);
 }

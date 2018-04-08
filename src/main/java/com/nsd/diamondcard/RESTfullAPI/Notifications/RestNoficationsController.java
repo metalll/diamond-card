@@ -1,20 +1,19 @@
 package com.nsd.diamondcard.RESTfullAPI.Notifications;
 
 
+import com.google.gson.Gson;
 import com.nsd.diamondcard.DBLayerControllers.DBNotifationsKeys;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
-import com.nsd.diamondcard.Model.NotificationKey;
+import com.nsd.diamondcard.Model.JSONResponce;
+import com.nsd.diamondcard.Model.NotificationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.objenesis.instantiator.gcj.GCJSerializationInstantiator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.*;
-import java.io.StringReader;
 
 /**
  * Created by nsd on 07.12.17.
@@ -32,11 +31,15 @@ public class RestNoficationsController {
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST)
     public String subscribe(@RequestParam("key")String key, @RequestParam("device")String userDeviceType, @RequestParam("development")String development,@RequestParam("deviceUUID")String deviceUUIUD) {
         try {
-            if (key == null && key.equals("")) {
-                return "BAD";
+            if (key == null || key.equals("")) {
+                Gson gson = new Gson();
+                JSONResponce jsonResponce = new JSONResponce(false,null);
+                return gson.toJson(jsonResponce);
             }
         } catch (NullPointerException e) {
-            return "BAD";
+            Gson gson = new Gson();
+            JSONResponce jsonResponce = new JSONResponce(false,null);
+            return gson.toJson(jsonResponce);
         }
 
 
@@ -48,9 +51,9 @@ public class RestNoficationsController {
 
         long userId = userService.getUser(userName).getUserID();
 
-        NotificationKey keyN = null;
+        NotificationEntity keyN = null;
 
-        for (NotificationKey tempKey : keysManager.getNoficationKeysWithUserId(userId)) {
+        for (NotificationEntity tempKey : keysManager.getNoficationKeysWithUserId(userId)) {
 
             if (tempKey.getKey().equals(key)) {
                 keyN = tempKey;
@@ -61,29 +64,34 @@ public class RestNoficationsController {
 
 
         if (keyN == null) {
-            keyN = new NotificationKey();
+            keyN = new NotificationEntity();
         }
 
         keyN.setUserId(userId);
         keyN.setKey(key);
         keyN.setDevelopment(development);
+        keyN.setUserDeviceId(deviceUUIUD);
         keyN.setUserDeviceType(userDeviceType);
         keysManager.createNotificationKey(keyN);
-        return "OK";
+        Gson gson = new Gson();
+        JSONResponce jsonResponce = new JSONResponce(true,null);
+        return gson.toJson(jsonResponce);
     }
 
     @RequestMapping(value = "/unsubscribe",method = RequestMethod.POST)
     public String unsubscribe(){
-        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = currentAuth.getName();
-        long userId = userService.getUser(userName).getUserID();
-        try {
+//        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+//        String userName = currentAuth.getName();
+//        long userId = userService.getUser(userName).getUserID();
+//        try {
+//
+//        } catch (Exception e) {
+//
+//        }
 
-        } catch (Exception e) {
-
-        }
-
-        return "OK";
+        Gson gson = new Gson();
+        JSONResponce jsonResponce = new JSONResponce(true,null);
+        return gson.toJson(jsonResponce);
     }
 
 }
