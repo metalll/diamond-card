@@ -52,6 +52,7 @@ public class ScheduledTasks {
         activity.setActiveOperation(false);
 
 
+        // Todo accept cahback
 
 
         activityService.updateActivity(activity);
