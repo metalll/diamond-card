@@ -47,7 +47,8 @@ public class Register {
             user.setPasswd(stringSha1Hash(pass));
             user.setCashbackCardNumber(uuid);
             user.setBillingCardNum("null");
-
+            user.setFirstName("Diamond");
+            user.setSecondName("User");
             userService.createUser(user);
 
             Buyer buyer = new Buyer();
