@@ -3,6 +3,8 @@ package com.nsd.diamondcard.Controller;
 import com.nsd.diamondcard.DBLayerControllers.DBNotifationsKeys;
 import com.nsd.diamondcard.DBLayerControllers.DBUser;
 import com.nsd.diamondcard.DBLayerControllers.NotificatonType;
+import com.nsd.diamondcard.Model.NotificationEntity;
+import com.nsd.diamondcard.Model.User;
 import com.turo.pushy.apns.ApnsClient;
 import com.turo.pushy.apns.ApnsClientBuilder;
 import com.turo.pushy.apns.PushNotificationResponse;
@@ -12,8 +14,10 @@ import com.turo.pushy.apns.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.Notification;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -31,7 +35,17 @@ public class NotificationsController {
 
     public void sendPush(String targetEmail, Map<String,?> payloadInfo, NotificatonType type) {
 
+        User currUser = userStorage.getUser(targetEmail);
 
+        List<NotificationEntity>notificationEntities = notificationStorage.getNoficationKeysWithUserId(currUser.getUserID());
+
+        for (NotificationEntity entity : notificationEntities) {
+           if (entity.getUserDeviceType().toLowerCase().equals("ios")) {
+               sendiOSPush(payloadInfo,type,entity.getKey());
+           } else {
+               sendAndroidPush(targetEmail,payloadInfo,type,entity.getKey());
+           }
+        }
 
 
     }

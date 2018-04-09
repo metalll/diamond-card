@@ -8,6 +8,7 @@ import com.nsd.diamondcard.Model.JSONResponce;
 import com.nsd.diamondcard.Model.NotificationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.objenesis.instantiator.gcj.GCJSerializationInstantiator;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class RestNoficationsController {
     @Autowired
     DBUser userService;
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/subscribe",method = RequestMethod.POST)
     public String subscribe(@RequestParam("key")String key, @RequestParam("device")String userDeviceType, @RequestParam("development")String development,@RequestParam("deviceUUID")String deviceUUIUD) {
         try {
@@ -78,6 +80,9 @@ public class RestNoficationsController {
         return gson.toJson(jsonResponce);
     }
 
+
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/unsubscribe",method = RequestMethod.POST)
     public String unsubscribe(){
 //        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
