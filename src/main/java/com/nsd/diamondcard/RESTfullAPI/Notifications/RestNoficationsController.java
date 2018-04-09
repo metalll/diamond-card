@@ -57,7 +57,7 @@ public class RestNoficationsController {
 
         for (NotificationEntity tempKey : keysManager.getNoficationKeysWithUserId(userId)) {
 
-            if (tempKey.getKey().equals(key)) {
+            if (tempKey.getUserDeviceId().equals(deviceUUIUD)) {
                 keyN = tempKey;
                 break;
             }
