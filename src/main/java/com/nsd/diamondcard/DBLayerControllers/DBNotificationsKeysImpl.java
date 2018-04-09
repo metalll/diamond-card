@@ -6,6 +6,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.nsd.diamondcard.Model.NotificationEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,6 +58,11 @@ public class DBNotificationsKeysImpl implements DBNotifationsKeys {
         } catch (Exception e) {
             System.out.println("Notifaction DB error get -> stack ->::" + e.getLocalizedMessage());
         }
+
+        if (retVal == null) {
+            retVal = new ArrayList<>();
+        }
+
         return retVal;
     }
 
