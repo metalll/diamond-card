@@ -57,6 +57,9 @@ public class Register {
             buyer.setIsActive("YES");
             buyer.setPercent(-1.0f);
 
+
+
+
             buyerService.createBuyer(buyer);
 
             UserRole role = new UserRole();

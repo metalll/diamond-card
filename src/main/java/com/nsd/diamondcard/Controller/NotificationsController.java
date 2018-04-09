@@ -136,7 +136,7 @@ public class NotificationsController {
 
         switch (type) {
             case NEW_CASHBACK:
-                endResult = "You has a new cashback";
+                endResult = "You has a new cashback. Please accept your cashback";
                 break;
             case CASHBACK_DID_REMOVED:
                 endResult = "You cashback did removed";
