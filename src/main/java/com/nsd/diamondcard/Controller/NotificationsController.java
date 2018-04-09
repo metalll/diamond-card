@@ -63,6 +63,7 @@ public class NotificationsController {
 
                 final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
                 payloadBuilder.setAlertBody(this.textFromNotificationType(type));
+                payloadBuilder.setSoundFileName("default");
                 for (String key : payloadInfo.keySet()) {
                     payloadBuilder.addCustomProperty(key,payloadInfo.get(key));
                 }
