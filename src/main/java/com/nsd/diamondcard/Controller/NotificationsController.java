@@ -71,7 +71,9 @@ public class NotificationsController {
                 final String token = TokenUtil.sanitizeTokenString(deviceToken);
                 System.out.println(token);
 
-                pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
+                pushNotification = new SimpleApnsPushNotification(token, "com.nsd.Diamond-Club", payload);
+
+
 
                 final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
                         apnsClient.sendNotification(pushNotification);
