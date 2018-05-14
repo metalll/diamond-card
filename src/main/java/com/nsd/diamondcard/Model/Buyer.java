@@ -24,8 +24,6 @@ public class Buyer {
     @DatabaseField
     private float shadowBalance;
 
-
-
     @DatabaseField
     private long foreignTargetBuyerId;
 
