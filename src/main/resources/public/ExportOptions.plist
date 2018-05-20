@@ -14,7 +14,7 @@
 		<string>https://diamond-card.herokuapp.com/diamond.png</string>
 	</dict>
 	<key>method</key>
-	<string>ad-hoc</string>
+	<string>development</string>
 	<key>signingStyle</key>
 	<string>automatic</string>
 	<key>stripSwiftSymbols</key>
