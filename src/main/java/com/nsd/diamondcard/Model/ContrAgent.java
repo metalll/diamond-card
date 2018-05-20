@@ -37,6 +37,9 @@ public class ContrAgent {
     private long millisecondToAppruveCashback;
 
     @DatabaseField
+    private String siteURL;
+
+    @DatabaseField
     private long foreingId;
 
     public String getImage() {
@@ -117,5 +120,13 @@ public class ContrAgent {
 
     public void setLocationLatitude(float locationLatitude) {
         this.locationLatitude = locationLatitude;
+    }
+
+    public String getSiteURL() {
+        return siteURL;
+    }
+
+    public void setSiteURL(String siteURL) {
+        this.siteURL = siteURL;
     }
 }
