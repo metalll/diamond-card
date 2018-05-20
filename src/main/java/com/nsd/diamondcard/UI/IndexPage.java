@@ -31,7 +31,7 @@ public class IndexPage {
         Map<String, String> model = new HashMap<>();
 
 
-        controller.sendPush("alex",new HashMap<>(),NEW_CASHBACK);
+//        controller.sendPush("alex",new HashMap<>(),NEW_CASHBACK);
 
         return new ModelAndView(VIEW_NAME, model);
     }
