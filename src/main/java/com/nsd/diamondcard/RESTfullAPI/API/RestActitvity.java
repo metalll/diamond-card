@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.soap.SAAJResult;
 import java.io.File;
 import java.security.InvalidKeyException;
@@ -155,7 +156,7 @@ public class RestActitvity {
 
     @PreAuthorize("hasAnyRole('ROLE_CONTR_AGENT')")
     @RequestMapping(value = "/activity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String add(@RequestParam("userCashCard") String userCashCard, @RequestParam("type") String type, @RequestParam("value") String value) {
+    public String add(@RequestParam("userCashCard") String userCashCard, @RequestParam("type") String type, @RequestParam("value") String value , HttpServletResponse response) {
         Gson gson = new Gson();
         try {
 
@@ -169,9 +170,6 @@ public class RestActitvity {
             float shadow = targetBuyer.getShadowBalance();
             float preparedOperationValue = initiatorContrAgent.getPercent() * Float.parseFloat(value);
 
-            shadow += preparedOperationValue;
-            targetBuyer.setShadowBalance(shadow);
-
             Activity activity = new Activity();
             activity.setInitiatorId(initiatorId);
             activity.setTargetId(targetUserId);
@@ -179,91 +177,17 @@ public class RestActitvity {
             activity.setType(type);
             activity.setDate(System.currentTimeMillis());
             activity.setDateOffset(initiatorContrAgent.getMillisecondToAppruveCashback());
-
             activity.setPreparedTagetOperationValue(String.valueOf(preparedOperationValue));
-            activity.setActiveOperation(true);
+            activity.setActiveOperation(false);
             activity.setSuccessComplete(false);
             activityService.createActivity(activity);
             userBuyerService.updateBuyer(targetBuyer);
-
-
-//
-//            String targetUserToken = notifationsKeysService.getNoficationKeyWithUserId(targetUserId).getKey();
-//
-//            if (targetUserToken != null) {
-//                ClassLoader classLoader = getClass().getClassLoader();
-//                try {
-//                    final ApnsClient apnsClient = new ApnsClientBuilder()
-//                            .setClientCredentials(new File("/app/diamondCard.p12"), "QazWsx321").setApnsServer("api.development.push.apple.com",443).build();
-//
-//
-//
-//                    final SimpleApnsPushNotification pushNotification;
-//
-//
-//                        final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
-//                        payloadBuilder.setAlertBody("hi!");
-//
-//                        final String payload = payloadBuilder.buildWithDefaultMaximumLength();
-//                        final String token = TokenUtil.sanitizeTokenString(targetUserToken);
-//                        System.out.println(token);
-//
-//                        pushNotification = new SimpleApnsPushNotification(token, "com.nsd.diamondCard", payload);
-//
-//                    final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
-//                            apnsClient.sendNotification(pushNotification);
-//
-//                    try {
-//                        final PushNotificationResponse<SimpleApnsPushNotification> pushNotificationResponse =
-//                                sendNotificationFuture.get();
-//
-//                        if (pushNotificationResponse.isAccepted()) {
-//                            System.out.println("Push notification accepted by APNs gateway.");
-//                        } else {
-//                            System.out.println("Notification rejected by the APNs gateway: " +
-//                                    pushNotificationResponse.getRejectionReason());
-//
-//                            if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
-//                                System.out.println("\t…and the token is invalid as of " +
-//                                        pushNotificationResponse.getTokenInvalidationTimestamp());
-//                            }
-//                        }
-//                    } catch (final ExecutionException e) {
-//                        System.err.println("Failed to send push notification.");
-//                        e.printStackTrace();
-//                    }
-//
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//
-//
-//                    File f = new File("."); // current directory
-//
-//                    File[] files = f.listFiles();
-//                    for (File file : files) {
-//                        if (file.isDirectory()) {
-//                            System.out.print("directory:");
-//                        } else {
-//                            System.out.print("     file:");
-//                        }
-//                        System.out.println(file.getCanonicalPath());
-//                    }
-//
-//
-//                }
-//
-//
-//
-//
-//            }
-
 
             JSONResponce jsonResponce = new JSONResponce(true, null);
             return gson.toJson(jsonResponce);
         } catch (Exception e) {
             JSONResponce jsonResponce = new JSONResponce(false, null);
+            response.setStatus(406);
             return gson.toJson(jsonResponce);
         }
 
