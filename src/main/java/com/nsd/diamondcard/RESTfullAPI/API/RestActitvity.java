@@ -208,7 +208,7 @@ public class RestActitvity {
             List<Activity> filteredList = new ArrayList<>();
 
             for (Activity item : requestList) {
-                if (item.isActiveOperation() &&
+                if (
                         ((item.getTargetId() == currentUser.getUserID())
                                 || (item.getInitiatorId() == currentUser.getUserID()))) {
 

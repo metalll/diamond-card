@@ -65,16 +65,12 @@ public class RestBuyer {
 
         HashMap<String,Object> hashMap = new HashMap<>();
 
-
         com.nsd.diamondcard.Model.User tUser = userService.getUser(currUserName);
         switch (currentRole){
             case ROLE_NONE:
-
                 JSONResponce jsonResponce = new JSONResponce(false,null);
                 return gson.toJson(jsonResponce);
-
             default:
-
                 tUser.setPasswd("");
                 tUser.setBillingCardNum("");
 
@@ -85,7 +81,5 @@ public class RestBuyer {
                 return gson.toJson(jsonResponce1);
 
         }
-        //return "";
     }
-
 }
