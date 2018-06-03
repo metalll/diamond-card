@@ -11,7 +11,7 @@ class DBConnectionFactory {
         if (source == null) {
             try {
                 Class.forName("org.postgresql.Driver");
-                source = new JdbcConnectionSource("jdbc:postgresql://ec2-54-235-146-184.compute-1.amazonaws.com:5432/dc4id95g8fkddn?sslmode=require&user=kpxtqcjnjmomrk&password=9f501dad1443c91188f52dfeb2eeff7dd405f34eaa8ef28bbed757fef0ec3f21");
+                source = new JdbcConnectionSource("jdbc:postgresql://206.189.185.102:5432/postgres?sslmode=require&user=postgres&password=QazWsx321");
             } catch (Exception e) {
                 e.printStackTrace();
             }
